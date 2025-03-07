@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
 const VideoSection = () => {
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -29,25 +28,18 @@ const VideoSection = () => {
 
     return (
         <div className="container max-w-full px-8 mx-auto">
-            <motion.div
-                className="w-full overflow-hidden bg-black shadow-lg rounded-xl"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-            >
+            <div className="w-full overflow-hidden bg-black shadow-lg rounded-xl">
                 <iframe
                     ref={iframeRef}
                     width="100%"
                     height="500px"
-                    src=""
                     title="YouTube video player"
                     frameBorder="0"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     className="rounded-t-xl"
                 ></iframe>
-            </motion.div>
+            </div>
         </div>
     );
 };

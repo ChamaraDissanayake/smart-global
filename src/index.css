@@ -40,3 +40,12 @@
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+
+// Choose us section
+
+.animated-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out; /* Smooth fade effect */
+}

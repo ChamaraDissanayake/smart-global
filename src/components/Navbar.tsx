@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME } from '../utils/constants/company-details';
 import icon from '../assets/images/icon.png';
+// import GoogleTranslate from './GoogleTranslate';
 
 const Navbar: React.FC = () => {
-    const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false); // Mobile menu state
-    const [scrolling, setScrolling] = useState<boolean>(false); // State to track scrolling
+    const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+    const [scrolling, setScrolling] = useState<boolean>(false);
 
     // Scroll event listener to change background on scroll
     useEffect(() => {
@@ -19,7 +20,6 @@ const Navbar: React.FC = () => {
 
         window.addEventListener('scroll', handleScroll);
 
-        // Cleanup on component unmount
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -65,7 +65,6 @@ const Navbar: React.FC = () => {
                         </div>
                     </div>
 
-
                     {/* Desktop Links */}
                     <div className="hidden sm:block sm:ml-6 h-[40px]">
                         <div className="flex space-x-4">
@@ -95,6 +94,11 @@ const Navbar: React.FC = () => {
                             </Link>
                         </div>
                     </div>
+
+                    {/* Google Translate Dropdown */}
+                    {/* <div className="ml-4">
+                        <GoogleTranslate />
+                    </div> */}
                 </div>
             </div>
 
