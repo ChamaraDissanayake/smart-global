@@ -2,9 +2,9 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTimes } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className="py-12 text-white bg-gray-800">
+        <footer className="relative z-10 py-6 text-white bg-gray-800">
             <div className="container px-8 mx-auto">
-                <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
                     {/* Footer Section 1 */}
                     <div>
                         <h4 className="mb-4 text-xl font-semibold">Smart Global Hub</h4>
@@ -37,33 +37,35 @@ const Footer = () => {
                             <li><a href="#" className="text-lg text-gray-400 hover:text-white">Marketing</a></li>
                         </ul>
                     </div>
-                </div>
 
-                {/* Footer Social Icons */}
-                <div className="mt-6 text-center">
-                    <h4 className="mb-4 text-xl font-semibold">Follow Us</h4>
-                    <div className="flex justify-center space-x-6">
-                        <a href="#" className="text-gray-400 hover:text-blue-600">
-                            <FaFacebook size={24} />
-                        </a>
-                        <a href="#" className="text-gray-400 hover:text-pink-600">
-                            <FaInstagram size={24} />
-                        </a>
-                        <a href="#" className="text-gray-400 hover:text-blue-500">
-                            <FaLinkedin size={24} />
-                        </a>
-                        <a href="#" className="text-gray-400 hover:text-red-500">
-                            <FaTimes size={24} />
-                        </a>
+                    {/* Footer Section 4 (Follow Us) */}
+                    <div>
+                        <h4 className="mb-4 text-xl font-semibold">Follow Us</h4>
+                        <div className="mb-4">
+                            <p className="text-lg text-gray-400">
+                                Driven by innovation, we pioneer progress and serve as trusted partners in every client's digital journey. Based in Dubai, our dedication spearheads digital transformation locally and globally.
+                            </p>
+                        </div>
+                        <div className="flex justify-center space-x-6">
+                            <a href="https://www.facebook.com/smartclassicdubai/" className="text-gray-400 hover:text-blue-600" target="_blank" rel="noopener noreferrer">
+                                <FaFacebook size={24} />
+                            </a>
+                            <a href="https://www.instagram.com/smartclassicdubai/" className="text-gray-400 hover:text-pink-600" target="_blank" rel="noopener noreferrer">
+                                <FaInstagram size={24} />
+                            </a>
+                            <a href="https://www.linkedin.com/company/smartclassicdubai/posts/?feedView=all" className="text-gray-400 hover:text-blue-500" target="_blank" rel="noopener noreferrer">
+                                <FaLinkedin size={24} />
+                            </a>
+                            <a href="https://twitter.com/smartforglobal" className="text-gray-400 hover:text-red-500" target="_blank" rel="noopener noreferrer">
+                                <FaTimes size={24} />
+                            </a>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                {/* Footer Bottom */}
-                <div className="mt-12 text-center">
-                    <p className="text-lg text-gray-400">
-                        Driven by innovation, we pioneer progress and serve as trusted partners in every client's digital journey. Based in Dubai, our dedication spearheads digital transformation locally and globally.
-                    </p>
-                </div>
+            <div className="px-6 pt-4 text-center text-white">
+                <p>© 2025 Smart Global. All Rights Reserved.</p>
             </div>
         </footer>
     );

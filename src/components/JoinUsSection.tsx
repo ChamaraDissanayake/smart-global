@@ -1,28 +1,16 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import useImageCarousel from "../hooks/useImageCarousel";
 
 const images = [
-    "/images/join-us-1.jpeg",
-    "/images/join-us-2.avif",
+    "/images/join-us-1.webp",
+    "/images/join-us-2.jpg",
     "/images/join-us-3.jpg",
-    "/images/join-us-4.webp",
-    "/images/join-us-5.jpg",
+    "/images/join-us-4.jpeg",
+    "/images/join-us-5.webp",
 ];
 
-const JoinSection = () => {
-    const [currentImage, setCurrentImage] = useState(images[0]);
-
-    useEffect(() => {
-        let index = 0;
-        const interval = setInterval(() => {
-            index = (index + 1) % images.length;
-            setCurrentImage(images[index]);
-        }, 4000); // Change every 4s
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const nextImage = images[(images.indexOf(currentImage) + 1) % images.length];
+const JoinUsSection = () => {
+    const { currentImage, nextImage } = useImageCarousel(images, 4000);
 
     return (
         <div className="relative flex items-center justify-center w-full h-screen overflow-hidden bg-center bg-cover">
@@ -31,8 +19,8 @@ const JoinSection = () => {
                 className="absolute inset-0 bg-center bg-cover"
                 style={{ backgroundImage: `url(${currentImage})` }}
                 key={`old-${currentImage}`} // Unique key for the old image
-                initial={{ opacity: 1, scale: 1 }} // Old image starts visible and normal
-                animate={{ opacity: 0, scale: 0.9 }} // Fade out and zoom out
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 0, y: -50 }}
                 transition={{
                     duration: 1,
                     ease: "easeInOut",
@@ -44,8 +32,8 @@ const JoinSection = () => {
                 className="absolute inset-0 bg-center bg-cover"
                 style={{ backgroundImage: `url(${nextImage})` }}
                 key={`new-${nextImage}`} // Unique key for the new image
-                initial={{ opacity: 0, scale: 1.1 }} // Start slightly zoomed in and invisible
-                animate={{ opacity: 1, scale: 1 }} // Fade in and zoom in
+                initial={{ opacity: 0, y: 500 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
                     duration: 1,
                     ease: "easeInOut",
@@ -72,4 +60,4 @@ const JoinSection = () => {
     );
 };
 
-export default JoinSection;
+export default JoinUsSection;

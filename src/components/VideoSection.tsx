@@ -27,18 +27,21 @@ const VideoSection = () => {
     }, [hasPlayed]); // Dependency on hasPlayed to prevent resetting the src
 
     return (
-        <div className="container max-w-full px-8 mx-auto">
-            <div className="w-full overflow-hidden bg-black shadow-lg rounded-xl">
-                <iframe
-                    ref={iframeRef}
-                    width="100%"
-                    height="500px"
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    className="rounded-t-xl"
-                ></iframe>
+        <div className="py-10">
+            <h2 className="mb-4 text-4xl font-bold text-center text-white md:text-5xl">Experience the Power of AI & Tech</h2>
+            <div className="container max-w-full px-8 mx-auto">
+                <div className="w-full overflow-hidden bg-black shadow-lg rounded-xl">
+                    <iframe
+                        ref={iframeRef}
+                        width="100%"
+                        height="500px"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                        className="rounded-t-xl"
+                    ></iframe>
+                </div>
             </div>
         </div>
     );
