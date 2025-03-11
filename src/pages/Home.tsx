@@ -14,22 +14,22 @@ const Home: React.FC = () => {
     return (
         <>
             {/* Introduction Section */}
-            <div>
+            <section>
                 <IntroductionSection />
-            </div>
+            </section>
 
             {/* Services Section */}
-            <div>
+            <section>
                 <ServicesSection />
-            </div>
+            </section>
 
             {/* YouTube Video Section */}
-            <div>
+            <section>
                 <VideoSection />
-            </div>
+            </section>
 
             {/* Our Expertise Section */}
-            <div className="py-10">
+            <section className="py-10">
                 <div className="container grid items-center max-w-full grid-cols-1 px-8 mx-auto md:grid-cols-2">
                     <div className="w-full">
                         <img
@@ -115,10 +115,10 @@ const Home: React.FC = () => {
                         </div>
                     </motion.div>
                 </div>
-            </div>
+            </section>
 
             {/* Why Choose Us Section */}
-            <div className="py-10">
+            <section className="py-10">
                 <div className="container grid items-center max-w-full grid-cols-1 px-8 mx-auto md:grid-cols-2">
                     <motion.div
                         className="pr-8 mb-8 md:mb-0"
@@ -204,22 +204,22 @@ const Home: React.FC = () => {
                         />
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Our Mission Section*/}
-            <div>
+            <section>
                 <OurMissionSection />
-            </div>
+            </section>
 
             {/* Join us Section */}
-            <div>
+            <section>
                 <JoinUsSection />
-            </div>
+            </section>
 
             {/* Contact Us Section */}
-            <div>
+            <section>
                 <ContactSection />
-            </div>
+            </section>
 
         </>
     );

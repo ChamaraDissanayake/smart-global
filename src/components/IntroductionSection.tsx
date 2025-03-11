@@ -7,6 +7,8 @@ const images = [
     "/images/intro-3.jpg",
     "/images/intro-4.webp",
     "/images/intro-5.jpg",
+    "/images/intro-6.webp",
+    "/images/intro-7.webp"
 ];
 
 const IntroductionSection: React.FC = () => {

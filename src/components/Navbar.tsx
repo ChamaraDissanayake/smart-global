@@ -59,36 +59,48 @@ const Navbar: React.FC = () => {
 
                     {/* Logo */}
                     <div className="flex items-center justify-center flex-1 sm:justify-start">
-                        <div className="flex items-center text-3xl font-semibold text-white">
-                            <img src={icon} alt="icon" className="w-10 h-10 mr-2" />
+                        <div className="flex items-center text-2xl font-semibold text-white md:text-3xl whitespace-nowrap">
+                            <img src={icon} alt="icon" className="w-8 h-8 mr-2 md:w-10 md:h-10" />
                             <Link to="/" className="text-white">{COMPANY_NAME}</Link>
                         </div>
                     </div>
 
                     {/* Desktop Links */}
                     <div className="hidden sm:block sm:ml-6 h-[40px]">
-                        <div className="flex space-x-4">
+                        <div className="flex space-x-2 md:space-x-4">
                             <Link
                                 to="/"
-                                className="relative px-3 py-2 font-semibold text-white transition-all transform hover:scale-105 button-border"
+                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
                             >
                                 Home
                             </Link>
                             <Link
+                                to="/insights"
+                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
+                            >
+                                Insights
+                            </Link>
+                            <Link
                                 to="/about"
-                                className="relative px-3 py-2 font-semibold text-white transition-all transform hover:scale-105 button-border"
+                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
                             >
                                 About
                             </Link>
                             <Link
+                                to="/careers"
+                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
+                            >
+                                Careers
+                            </Link>
+                            <Link
                                 to="/services"
-                                className="relative px-3 py-2 font-semibold text-white transition-all transform hover:scale-105 button-border"
+                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
                             >
                                 Services
                             </Link>
                             <Link
                                 to="/contact"
-                                className="relative px-3 py-2 font-semibold text-white transition-all transform hover:scale-105 button-border"
+                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
                             >
                                 Contact
                             </Link>

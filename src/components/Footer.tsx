@@ -12,7 +12,7 @@ const Footer = () => {
                         <p className="mb-4 text-lg">1st floor - Office 102 Smart Hub HQ</p>
                         <p className="mb-4 text-lg">Phone: +971 50 440 6565</p>
                         <p className="text-lg">
-                            Email: <a href="mailto:info@example.com" className="text-blue-400">info@example.com</a>
+                            Email: <a href="mailto:hello@smartclassic.ae" className="text-blue-400">hello@smartclassic.ae</a>
                         </p>
                     </div>
 

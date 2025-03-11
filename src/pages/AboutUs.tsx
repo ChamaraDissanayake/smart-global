@@ -1,13 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaRobot, FaCloud, FaCogs } from "react-icons/fa";
 import OurMissionSection from "../components/OurMissionSection";
 import TeamSection from "../components/OurTeamSection";
 import TeamMembersSection from "../components/TeamMembersSection";
 
 const AboutUs: React.FC = () => {
     return (
-        <div className="mt-24 text-white bg-black">
+        <div className="pt-24 text-white bg-black">
             {/* Background Image with Dark Overlay */}
             <div
                 className="fixed inset-0 z-0 bg-center bg-cover"
@@ -78,9 +77,9 @@ const AboutUs: React.FC = () => {
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {/* Expertise Items */}
                         {[
-                            { icon: FaCogs, title: "Tech Solutions", content: "Crafting customized digital strategies that boost business efficiency and growth.", delay: 0.2 },
-                            { icon: FaCloud, title: "SaaS", content: "Offering flexible, cloud-based software solutions that streamline operations and improve productivity.", delay: 0.4 },
-                            { icon: FaRobot, title: "AI Integration", content: "Leveraging the power of Artificial Intelligence to enhance automation, decision-making, and customer interaction.", delay: 0.6 },
+                            { icon: "⚙️", title: "Tech Solutions", content: "Crafting customized digital strategies that boost business efficiency and growth.", delay: 0.2 },
+                            { icon: "☁️", title: "SaaS", content: "Offering flexible, cloud-based software solutions that streamline operations and improve productivity.", delay: 0.4 },
+                            { icon: "🤖", title: "AI Integration", content: "Leveraging the power of Artificial Intelligence to enhance automation, decision-making, and customer interaction.", delay: 0.6 },
                         ].map(({ icon: Icon, title, content, delay }) => (
                             <motion.div
                                 key={title}
@@ -89,7 +88,7 @@ const AboutUs: React.FC = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay }}
                             >
-                                <Icon className="mb-4 text-5xl text-blue-500" />
+                                <div className="mb-4 text-5xl">{Icon}</div>
                                 <h3 className="mb-2 text-xl font-semibold">{title}</h3>
                                 <p className="text-gray-300">
                                     {content}
@@ -109,16 +108,18 @@ const AboutUs: React.FC = () => {
                     <motion.h2
                         className="mb-6 text-3xl font-semibold"
                         initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }} // Trigger animation when the element enters the viewport
                         transition={{ duration: 1 }}
+                        viewport={{ once: true }} // Animation happens once when the element enters the view
                     >
                         Smart Global Hub – Innovating the Future
                     </motion.h2>
                     <motion.p
                         className="max-w-3xl mx-auto text-lg text-gray-300"
                         initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }} // Trigger animation when the element enters the viewport
                         transition={{ duration: 1, delay: 0.3 }}
+                        viewport={{ once: true }} // Animation happens once when the element enters the view
                     >
                         Our team is dedicated to helping businesses thrive through
                         innovative solutions in technology, SaaS, and AI. We believe in
