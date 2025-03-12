@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import useImageCarousel from '../hooks/useImageCarousel';
+import { Link } from 'react-router-dom';
+import { COMPANY_NAME } from '../utils/constants/company-details';
 
 const images = [
     "/images/intro-1.jpeg",
@@ -55,7 +57,7 @@ const IntroductionSection: React.FC = () => {
                         of Your Business is Here
                     </h2>
                     <h3 className="text-lg text-white sm:text-xl md:text-xl lg:text-2xl mt-[36px] max-w-[600px] mx-auto">
-                        Smart Global Hub offers cost-effective, customized technology and software solutions in the UAE and GCC, empowering businesses with scalable, secure, and AI-powered digital experiences.
+                        <Link to="/">{COMPANY_NAME}</Link> offers cost-effective, customized technology and software solutions in the UAE and GCC, empowering businesses with scalable, secure, and AI-powered digital experiences.
                     </h3>
                 </div>
 

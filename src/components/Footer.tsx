@@ -1,4 +1,6 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaTimes } from "react-icons/fa";
+import { COMPANY_NAME } from "../utils/constants/company-details";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -7,7 +9,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
                     {/* Footer Section 1 */}
                     <div>
-                        <h4 className="mb-4 text-xl font-semibold">Smart Global Hub</h4>
+                        <h4 className="mb-4 text-xl font-semibold"><Link to="/">{COMPANY_NAME}</Link></h4>
                         <p className="mb-4 text-lg">Alfutaim Office Tower Day to Day building</p>
                         <p className="mb-4 text-lg">1st floor - Office 102 Smart Hub HQ</p>
                         <p className="mb-4 text-lg">Phone: +971 50 440 6565</p>
@@ -65,7 +67,7 @@ const Footer = () => {
             </div>
 
             <div className="px-6 pt-4 text-center text-white">
-                <p>© 2025 Smart Global. All Rights Reserved.</p>
+                <p>© 2025 <Link to="/">{COMPANY_NAME}</Link>. All Rights Reserved.</p>
             </div>
         </footer>
     );

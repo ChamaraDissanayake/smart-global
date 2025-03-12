@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME } from '../utils/constants/company-details';
-import icon from '../assets/images/icon.png';
+import icon from '../assets/icons/icon.png';
 // import GoogleTranslate from './GoogleTranslate';
 
 const Navbar: React.FC = () => {

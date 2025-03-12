@@ -30,7 +30,7 @@
   left: 0;
   width: 100%;
   height: 2px; /* Set the border thickness */
-  background-color: #90b2f5;
+  background-color: red;
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.3s ease-out;

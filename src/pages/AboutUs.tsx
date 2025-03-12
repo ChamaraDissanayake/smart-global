@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import OurMissionSection from "../components/OurMissionSection";
 import TeamSection from "../components/OurTeamSection";
 import TeamMembersSection from "../components/TeamMembersSection";
+import { Link } from "react-router-dom";
+import { COMPANY_NAME } from "../utils/constants/company-details";
 
 const AboutUs: React.FC = () => {
     return (
@@ -33,7 +35,7 @@ const AboutUs: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.2 }}
                     >
-                        Welcome to Smart Global Hub – Innovating the Future of Tech, SaaS, and AI Solutions. At Smart Global Hub, we are driven by a mission to empower businesses with cutting-edge technology solutions. Our expertise lies in integrating innovative approaches to create scalable, secure, and AI-powered digital experiences that transform how companies operate and engage with their customers.
+                        Welcome to <Link to="/">{COMPANY_NAME}</Link> – Innovating the Future of Tech, SaaS, and AI Solutions. At <Link to="/">{COMPANY_NAME}</Link>, we are driven by a mission to empower businesses with cutting-edge technology solutions. Our expertise lies in integrating innovative approaches to create scalable, secure, and AI-powered digital experiences that transform how companies operate and engage with their customers.
                     </motion.p>
                     <motion.p
                         className="text-xl text-gray-300"
@@ -112,7 +114,7 @@ const AboutUs: React.FC = () => {
                         transition={{ duration: 1 }}
                         viewport={{ once: true }} // Animation happens once when the element enters the view
                     >
-                        Smart Global Hub – Innovating the Future
+                        <Link to="/">{COMPANY_NAME}</Link> – Innovating the Future
                     </motion.h2>
                     <motion.p
                         className="max-w-3xl mx-auto text-lg text-gray-300"

@@ -8,6 +8,7 @@ import ServiceWebSection from "../components/ServiceWebSection";
 import ServiceSoftwareSection from "../components/ServiceSoftwareSection";
 import ServiceCloudSection from "../components/ServiceCloudSection";
 import ServiceSecuritySection from "../components/ServiceSecuritySection";
+import TechnologiesSection from "../components/TechnologiesSection";
 
 const backgroundImages = [
     "/images/join-us-2.jpg",
@@ -73,6 +74,7 @@ const OurServices = () => {
                 <div id="software"><ServiceSoftwareSection /></div>
                 <div id="cloud"><ServiceCloudSection /></div>
                 <div id="security"><ServiceSecuritySection /></div>
+                <div><TechnologiesSection /></div>
             </div>
         </div>
     );

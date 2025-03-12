@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="katman_1" data-name="katman 1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 841.89 595.28">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Adsız_degrade_3);
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-3 {
+        fill: url(#Adsız_degrade_2);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" x="196.06" y="59.32" width="449.46" height="475.66"/>
+    </clipPath>
+    <linearGradient id="Adsız_degrade_3" data-name="Adsız degrade 3" x1="212.45" y1="219.12" x2="568.83" y2="388.48" gradientTransform="translate(24.94 588.36) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e40236"/>
+      <stop offset=".24" stop-color="#e61e4c"/>
+      <stop offset=".35" stop-color="#e61a57"/>
+      <stop offset=".49" stop-color="#dd087d"/>
+      <stop offset=".74" stop-color="#694494"/>
+      <stop offset="1" stop-color="#4f4596"/>
+    </linearGradient>
+    <linearGradient id="Adsız_degrade_2" data-name="Adsız degrade 2" x1="264.38" y1="481.19" x2="497.6" y2="215.14" gradientTransform="translate(24.94 588.36) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#bd549a"/>
+      <stop offset="1" stop-color="#c76da9" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g class="cls-4">
+    <g>
+      <path class="cls-1" d="M643.66,138.31l-16.16,253.8L472.96,59.32l170.69,78.99ZM536.62,466.48l-116.76,66.62-116.77-66.62,23.75-57.55h186.03l23.75,57.55ZM419.86,185.64l61.18,148.75h-122.37s61.19-148.75,61.19-148.75ZM212.06,392.11l-16-253.8,170.69-78.99-154.7,332.79Z"/>
+      <path class="cls-3" d="M643.66,138.31l-16.16,253.8L472.96,59.32l170.69,78.99ZM536.62,466.48l-116.76,66.62-116.77-66.62,23.75-57.55h186.03l23.75,57.55ZM419.86,185.64l61.18,148.75h-122.37s61.19-148.75,61.19-148.75ZM212.06,392.11l-16-253.8,170.69-78.99-154.7,332.79Z"/>
+    </g>
+  </g>
+</svg>
