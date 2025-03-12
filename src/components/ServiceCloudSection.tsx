@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 
 const ServiceCloudSection = () => {
     return (
-        <div className="pt-24 text-white">
+        <div className="text-white">
 
             {/* Content Section */}
-            <div className="relative z-10 py-16">
+            <div className="relative z-10">
                 <section className="relative px-6">
                     {/* Hero Section */}
                     <div className="max-w-5xl mx-auto text-center">

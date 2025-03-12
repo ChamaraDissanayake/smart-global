@@ -29,7 +29,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px; /* Set the border thickness */
+  height: 2px;
   background-color: red;
   transform: scaleX(0);
   transform-origin: bottom right;
@@ -39,4 +39,15 @@
 .button-border:hover::before {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+.active-tab {
+  color: white;
+}
+
+/* Keep the underline on the selected tab */
+.active-tab::before {
+  transform: scaleX(1);
+  background-color: red;
+  color: white;
 }

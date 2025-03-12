@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { COMPANY_NAME } from "../utils/constants/company-details";
 
-// Define types for the technology items
 type Technology = {
     name: string;
     icon: string;
 };
 
-// Define types for the tabs
 type Tab = {
     id: string;
     label: string;
 };
 
-// Define the shape of the technologies object
 type Technologies = {
     [key: string]: Technology[];
 };
@@ -22,7 +19,6 @@ type Technologies = {
 const TechnologiesSection: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>("mobile");
 
-    // Define the tabs
     const tabs: Tab[] = [
         { id: "mobile", label: "Mobile App" },
         { id: "frontend", label: "Frontend" },
@@ -31,7 +27,6 @@ const TechnologiesSection: React.FC = () => {
         { id: "payment", label: "Payment" },
     ];
 
-    // Define the technologies data
     const technologies: Technologies = {
         mobile: [
             { name: "iOS", icon: "./icons/ios.svg" },
@@ -90,26 +85,23 @@ const TechnologiesSection: React.FC = () => {
     };
 
     return (
-        <section className="p-12">
-            <div className="container px-4 mx-auto">
-                <div className="mb-8 text-center">
-                    <h2 className="text-3xl font-bold text-white">
+        <section className="p-6 md:p-12">
+            <div className="container px-2 mx-auto md:px-4">
+                <div className="mb-6 text-center md:mb-8">
+                    <h2 className="text-2xl font-bold text-white md:text-3xl">
                         Empowering Solutions with the Latest Technologies
                     </h2>
-                    <p className="mt-4 text-gray-300">
+                    <p className="mt-3 text-gray-300 md:mt-4">
                         <Link to="/">{COMPANY_NAME}</Link> leverages advanced technologies to deliver innovative and scalable solutions tailored to your business needs.
                     </p>
                 </div>
 
-                {/* Tab Navigation */}
-                <ul className="flex justify-center mb-8 space-x-6 bg-gray-900 rounded-lg">
+                <ul className="flex justify-center mb-6 overflow-x-auto bg-gray-900 rounded-lg whitespace-nowrap scrollbar-hide md:justify-center md:mb-8 h-[42px]">
                     {tabs.map((tab) => (
-                        <li key={tab.id}>
+                        <li key={tab.id} className="flex-shrink-0">
                             <button
-                                className={`relative px-4 py-2 font-semibold button-border ${activeTab === tab.id
-                                    ? "text-white"
-                                    : "text-gray-400 hover:text-gray-200 hover:scale-105"
-                                    }`}
+                                className={`relative px-3 py-2 text-sm font-semibold min-w-[100px] md:px-4 md:text-base button-border 
+                                    ${activeTab === tab.id ? "text-white" : "text-gray-400 hover:text-gray-200 hover:scale-105"}`}
                                 onClick={() => setActiveTab(tab.id)}
                             >
                                 {tab.label}
@@ -118,25 +110,23 @@ const TechnologiesSection: React.FC = () => {
                     ))}
                 </ul>
 
-                {/* Tab Content */}
-                <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-6">
                     {technologies[activeTab].map((tech) => (
                         <div
                             key={tech.name}
-                            className="p-6 text-center transition-shadow bg-gray-900 rounded-lg shadow-md hover:shadow-lg"
+                            className="p-4 text-center transition-shadow bg-gray-900 rounded-lg shadow-md hover:shadow-lg md:p-6"
                         >
                             <img
                                 src={tech.icon}
                                 alt={tech.name}
-                                className="w-12 h-12 mx-auto mb-4"
+                                className="w-10 h-10 mx-auto mb-3 transition-transform duration-300 ease-in-out hover:scale-125 md:w-12 md:h-12 md:mb-4"
                             />
-                            <p className="font-medium text-gray-300">{tech.name}</p>
+                            <p className="text-sm font-medium text-gray-300 md:text-base">{tech.name}</p>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
-
     );
 };
 

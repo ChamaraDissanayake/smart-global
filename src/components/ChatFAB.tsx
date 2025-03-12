@@ -21,14 +21,20 @@ const ChatFAB: React.FC = () => {
             {isOpen && (
                 <div className="absolute right-0 flex flex-col gap-2 p-3 bg-white rounded-lg shadow-lg bottom-16">
                     <button
-                        onClick={() => window.open("https://wa.me/97142399266", "_blank")}
+                        onClick={() => {
+                            window.open("https://wa.me/97142399266", "_blank");
+                            setIsOpen(false); // Close the popup when an option is clicked
+                        }}
                         className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 rounded hover:bg-gray-100"
                     >
                         <FaWhatsapp className="text-green-600" /> WhatsApp
                     </button>
 
                     <button
-                        onClick={() => setIsChatBotOpen(true)} // Open ChatBot modal
+                        onClick={() => {
+                            setIsChatBotOpen(true); // Open ChatBot modal
+                            setIsOpen(false); // Close the popup when an option is clicked
+                        }}
                         className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 rounded hover:bg-gray-100"
                     >
                         <FaComments className="text-yellow-600" /> Chat

@@ -1,36 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_NAME } from '../utils/constants/company-details';
 import icon from '../assets/icons/icon.png';
-// import GoogleTranslate from './GoogleTranslate';
 
 const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const [scrolling, setScrolling] = useState<boolean>(false);
+    const location = useLocation(); // Get current route
 
-    // Scroll event listener to change background on scroll
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 0) {
-                setScrolling(true); // Change navbar to blue when scrolling
-            } else {
-                setScrolling(false); // Reset to transparent when at the top
-            }
+            setScrolling(window.scrollY > 0);
         };
-
         window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Determine the background color for the navbar
+    const navBgColor = scrolling || isMobileMenuOpen ? 'bg-custom-gray bg-opacity-90' : 'bg-transparent';
+
+    const handleLinkClick = () => {
+        setMobileMenuOpen(false); // Close the mobile menu when a link is clicked
+    };
+
     return (
-        <nav
-            className={`fixed top-0 left-0 w-full p-4 transition-all duration-300 ${scrolling ? 'bg-custom-gray bg-opacity-90' : 'bg-transparent'} z-50`}
-        >
+        <nav className={`fixed top-0 left-0 w-full p-4 transition-all duration-300 ${navBgColor} z-50`}>
             <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
+
                     {/* Mobile Menu Button */}
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                         <button
@@ -47,12 +44,7 @@ const Navbar: React.FC = () => {
                                 viewBox="0 0 24 24"
                                 aria-hidden="true"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
                     </div>
@@ -68,49 +60,24 @@ const Navbar: React.FC = () => {
                     {/* Desktop Links */}
                     <div className="hidden sm:block sm:ml-6 h-[40px]">
                         <div className="flex space-x-2 md:space-x-4">
-                            <Link
-                                to="/"
-                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
-                            >
-                                Home
-                            </Link>
-                            <Link
-                                to="/insights"
-                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
-                            >
-                                Insights
-                            </Link>
-                            <Link
-                                to="/about"
-                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
-                            >
-                                About
-                            </Link>
-                            <Link
-                                to="/careers"
-                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
-                            >
-                                Careers
-                            </Link>
-                            <Link
-                                to="/services"
-                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
-                            >
-                                Services
-                            </Link>
-                            <Link
-                                to="/contact"
-                                className="relative px-2 py-2 text-sm font-semibold text-white transition-all transform md:px-3 md:text-base hover:scale-105 button-border"
-                            >
-                                Contact
-                            </Link>
+                            {[
+                                { path: '/', label: 'Home' },
+                                { path: '/insights', label: 'Insights' },
+                                { path: '/about', label: 'About' },
+                                { path: '/careers', label: 'Careers' },
+                                { path: '/services', label: 'Services' },
+                                { path: '/contact', label: 'Contact' }
+                            ].map(({ path, label }) => (
+                                <Link
+                                    key={path}
+                                    to={path}
+                                    className={`relative px-2 py-2 text-sm font-semibold transition-all transform md:px-3 md:text-base hover:scale-105 button-border ${location.pathname === path ? 'active-tab' : 'text-gray-300'}`}
+                                >
+                                    {label}
+                                </Link>
+                            ))}
                         </div>
                     </div>
-
-                    {/* Google Translate Dropdown */}
-                    {/* <div className="ml-4">
-                        <GoogleTranslate />
-                    </div> */}
                 </div>
             </div>
 
@@ -118,30 +85,21 @@ const Navbar: React.FC = () => {
             {isMobileMenuOpen && (
                 <div className="sm:hidden">
                     <div className="px-2 pt-2 pb-3 space-y-1">
-                        <Link
-                            to="/"
-                            className="block px-3 py-2 text-base font-medium text-white rounded-md"
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            to="/about"
-                            className="block px-3 py-2 text-base font-medium text-white rounded-md"
-                        >
-                            About
-                        </Link>
-                        <Link
-                            to="/services"
-                            className="block px-3 py-2 text-base font-medium text-white rounded-md"
-                        >
-                            Services
-                        </Link>
-                        <Link
-                            to="/contact"
-                            className="block px-3 py-2 text-base font-medium text-white rounded-md"
-                        >
-                            Contact
-                        </Link>
+                        {[
+                            { path: '/', label: 'Home' },
+                            { path: '/about', label: 'About' },
+                            { path: '/services', label: 'Services' },
+                            { path: '/contact', label: 'Contact' }
+                        ].map(({ path, label }) => (
+                            <Link
+                                key={path}
+                                to={path}
+                                className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === path ? 'bg-gray-700' : 'text-white'}`}
+                                onClick={handleLinkClick} // Close the menu when clicked
+                            >
+                                {label}
+                            </Link>
+                        ))}
                     </div>
                 </div>
             )}

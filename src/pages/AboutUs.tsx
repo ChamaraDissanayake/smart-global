@@ -18,7 +18,7 @@ const AboutUs: React.FC = () => {
             </div>
 
             {/* Content Section */}
-            <div className="relative z-10 py-16">
+            <div className="relative z-10">
                 {/* Introduction Section */}
                 <section className="px-6 pb-20">
                     <motion.h1

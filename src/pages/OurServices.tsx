@@ -67,14 +67,14 @@ const OurServices = () => {
             </div>
 
             {/* Sections with IDs */}
-            <div className="relative z-10">
-                <div id="ai"><ServiceAISection /></div>
-                <div id="mobile"><ServiceMobileSection /></div>
-                <div id="web"><ServiceWebSection /></div>
-                <div id="software"><ServiceSoftwareSection /></div>
-                <div id="cloud"><ServiceCloudSection /></div>
-                <div id="security"><ServiceSecuritySection /></div>
-                <div><TechnologiesSection /></div>
+            <div className="relative z-10 pt-24">
+                <div className="py-8 md:py-16" id="ai"><ServiceAISection /></div>
+                <div className="py-8 md:py-16" id="mobile"><ServiceMobileSection /></div>
+                <div className="py-8 md:py-16" id="web"><ServiceWebSection /></div>
+                <div className="py-8 md:py-16" id="software"><ServiceSoftwareSection /></div>
+                <div className="py-8 md:py-16" id="cloud"><ServiceCloudSection /></div>
+                <div className="py-8 md:py-16" id="security"><ServiceSecuritySection /></div>
+                <div className="py-8 md:py-16"><TechnologiesSection /></div>
             </div>
         </div>
     );
