@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_NAME } from '../utils/constants/company-details';
-import icon from '../assets/icons/icon.png';
 
 const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -52,7 +51,7 @@ const Navbar: React.FC = () => {
                     {/* Logo */}
                     <div className="flex items-center justify-center flex-1 sm:justify-start">
                         <div className="flex items-center text-2xl font-semibold text-white md:text-3xl whitespace-nowrap">
-                            <img src={icon} alt="icon" className="w-8 h-8 mr-2 md:w-10 md:h-10" />
+                            <img src={"icons/company-logo.png"} alt="icon" className="w-8 h-8 mr-2 md:w-10 md:h-10" />
                             <Link to="/" className="text-white">{COMPANY_NAME}</Link>
                         </div>
                     </div>
@@ -64,8 +63,8 @@ const Navbar: React.FC = () => {
                                 { path: '/', label: 'Home' },
                                 { path: '/insights', label: 'Insights' },
                                 { path: '/about', label: 'About' },
-                                { path: '/careers', label: 'Careers' },
                                 { path: '/services', label: 'Services' },
+                                { path: '/careers', label: 'Careers' },
                                 { path: '/contact', label: 'Contact' }
                             ].map(({ path, label }) => (
                                 <Link
@@ -87,6 +86,7 @@ const Navbar: React.FC = () => {
                     <div className="px-2 pt-2 pb-3 space-y-1">
                         {[
                             { path: '/', label: 'Home' },
+                            { path: '/insights', label: 'Insights' },
                             { path: '/about', label: 'About' },
                             { path: '/services', label: 'Services' },
                             { path: '/contact', label: 'Contact' }

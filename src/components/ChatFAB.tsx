@@ -11,7 +11,7 @@ const ChatFAB: React.FC = () => {
         <div className="fixed z-50 bottom-5 right-5">
             {/* Floating Action Button */}
             <button
-                className="p-2 bg-transparent rounded-full shadow-lg hover:scale-110"
+                className="p-2 bg-transparent rounded-full hover:scale-110"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <img src={ChatIcon} alt="Chat" className="w-12 h-12" />
