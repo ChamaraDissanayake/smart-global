@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_NAME } from '../utils/constants/company-details';
+import { motion } from 'framer-motion';
 
 const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const [scrolling, setScrolling] = useState<boolean>(false);
-    const location = useLocation(); // Get current route
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -15,18 +16,31 @@ const Navbar: React.FC = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Determine the background color for the navbar
     const navBgColor = scrolling || isMobileMenuOpen ? 'bg-custom-gray bg-opacity-90' : 'bg-transparent';
 
     const handleLinkClick = () => {
-        setMobileMenuOpen(false); // Close the mobile menu when a link is clicked
+        setMobileMenuOpen(false);
+    };
+
+    const translateToArabic = () => {
+        setTimeout(() => {
+            const selectElement = document.querySelector<HTMLSelectElement>('.goog-te-combo');
+            if (selectElement) {
+                if (selectElement.value !== 'ar') {
+                    selectElement.value = 'ar';
+                    selectElement.dispatchEvent(new Event('change'));
+                    console.log('Language changed to Arabic');
+                } else {
+                    console.log('Language already converted');
+                }
+            }
+        }, 100); // Ensures Google Translate has loaded
     };
 
     return (
         <nav className={`fixed top-0 left-0 w-full p-4 transition-all duration-300 ${navBgColor} z-50`}>
             <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
-
                     {/* Mobile Menu Button */}
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                         <button
@@ -58,7 +72,7 @@ const Navbar: React.FC = () => {
 
                     {/* Desktop Links */}
                     <div className="hidden sm:block sm:ml-6 h-[40px]">
-                        <div className="flex space-x-2 md:space-x-4">
+                        <div className="flex items-center space-x-2 md:space-x-4">
                             {[
                                 { path: '/', label: 'Home' },
                                 { path: '/insights', label: 'Insights' },
@@ -75,6 +89,23 @@ const Navbar: React.FC = () => {
                                     {label}
                                 </Link>
                             ))}
+                            {/* Add Translate to Arabic Button */}
+                            <motion.button
+                                onClick={translateToArabic}
+                                className="px-4 py-2 text-white border-4 border-transparent rounded-md"
+                                initial={{ scale: 1, borderColor: "transparent" }} // Default: No border
+                                whileHover={{
+                                    scale: [1, 1.1, 1], // Scale up and down while hovering
+                                    borderColor: ["#ef4444", "#000000"], // Blink between red and black
+                                    transition: {
+                                        scale: { repeat: Infinity, duration: 0.6, ease: "easeInOut" }, // Smooth text scaling effect
+                                        borderColor: { repeat: Infinity, duration: 0.8, ease: "easeInOut" }, // Blinking border
+                                    },
+                                }}
+                                animate={{ borderColor: "transparent" }} // Reset border when mouse leaves
+                            >
+                                يترجم
+                            </motion.button>
                         </div>
                     </div>
                 </div>
@@ -95,7 +126,7 @@ const Navbar: React.FC = () => {
                                 key={path}
                                 to={path}
                                 className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === path ? 'bg-gray-700' : 'text-white'}`}
-                                onClick={handleLinkClick} // Close the menu when clicked
+                                onClick={handleLinkClick}
                             >
                                 {label}
                             </Link>
