@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_NAME } from '../utils/constants/company-details';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import IndustriesMenu from './Industries/IndustriesMenu';
 
 const Navbar: React.FC = () => {
+    const [isIndustriesOpen, setIndustriesOpen] = useState(false);
+    const [isIndustriesMobileOpen, setIndustriesMobileOpen] = useState(false);
     const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const [scrolling, setScrolling] = useState<boolean>(false);
     const location = useLocation();
@@ -35,6 +38,10 @@ const Navbar: React.FC = () => {
                 }
             }
         }, 100); // Ensures Google Translate has loaded
+    };
+
+    const handleCloseIndustries = () => {
+        setIndustriesOpen(false);
     };
 
     return (
@@ -89,20 +96,46 @@ const Navbar: React.FC = () => {
                                     {label}
                                 </Link>
                             ))}
-                            {/* Add Translate to Arabic Button */}
+
+                            {/* Industries with Hover Submenu (Desktop) */}
+                            <div
+                                className="relative group"
+                                onMouseEnter={() => setIndustriesOpen(true)}
+                                onMouseLeave={() => setIndustriesOpen(false)}
+                            >
+                                <button
+                                    onClick={() => setIndustriesOpen(!isIndustriesOpen)} // Toggle submenu
+                                    className={`relative px-2 py-2 text-sm font-semibold transition-all transform md:px-3 md:text-base hover:scale-105 button-border ${location.pathname === '/industries' ? 'active-tab' : 'text-gray-300'}`}
+                                >
+                                    Industries
+                                </button>
+                                <AnimatePresence>
+                                    {isIndustriesOpen && (
+                                        <div
+                                            onMouseEnter={() => setIndustriesOpen(true)}
+                                            onMouseLeave={() => setIndustriesOpen(false)}
+                                        >
+                                            <IndustriesMenu onClose={handleCloseIndustries} />
+                                        </div>
+                                    )}
+                                </AnimatePresence>
+
+                            </div>
+
+                            {/* Translate to Arabic Button */}
                             <motion.button
                                 onClick={translateToArabic}
                                 className="px-4 py-2 text-white border-4 border-transparent rounded-md"
-                                initial={{ scale: 1, borderColor: "transparent" }} // Default: No border
+                                initial={{ scale: 1, borderColor: "transparent" }}
                                 whileHover={{
-                                    scale: [1, 1.1, 1], // Scale up and down while hovering
-                                    borderColor: ["#ef4444", "#000000"], // Blink between red and black
+                                    scale: [1, 1.1, 1],
+                                    borderColor: ["#ef4444", "#000000"],
                                     transition: {
-                                        scale: { repeat: Infinity, duration: 0.6, ease: "easeInOut" }, // Smooth text scaling effect
-                                        borderColor: { repeat: Infinity, duration: 0.8, ease: "easeInOut" }, // Blinking border
+                                        scale: { repeat: Infinity, duration: 0.6, ease: "easeInOut" },
+                                        borderColor: { repeat: Infinity, duration: 0.8, ease: "easeInOut" },
                                     },
                                 }}
-                                animate={{ borderColor: "transparent" }} // Reset border when mouse leaves
+                                animate={{ borderColor: "transparent" }}
                             >
                                 يترجم
                             </motion.button>
@@ -131,6 +164,34 @@ const Navbar: React.FC = () => {
                                 {label}
                             </Link>
                         ))}
+
+                        {/* Industries Submenu (Mobile) */}
+                        <div>
+                            <button
+                                className="w-full px-3 py-2 text-left text-white bg-gray-800 rounded-md"
+                                onClick={() => setIndustriesMobileOpen(!isIndustriesMobileOpen)}
+                            >
+                                Industries {isIndustriesMobileOpen ? '▲' : '▼'}
+                            </button>
+                            {isIndustriesMobileOpen && (
+                                <div className="px-4 py-2 mt-2 space-y-2 bg-gray-700 rounded-md">
+                                    {[
+                                        { path: '/industry1', icon: '🏗', label: 'Construction' },
+                                        { path: '/industry2', icon: '🚀', label: 'Aerospace' },
+                                        { path: '/industry3', icon: '💻', label: 'Technology' },
+                                    ].map(({ path, icon }) => (
+                                        <Link
+                                            key={path}
+                                            to={path}
+                                            className="flex items-center space-x-2 text-white"
+                                            onClick={handleLinkClick}
+                                        >
+                                            <span className="text-lg">{icon}</span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

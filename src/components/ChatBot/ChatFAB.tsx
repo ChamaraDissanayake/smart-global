@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaWhatsapp, FaComments } from "react-icons/fa";
-import ChatIcon from "../assets/icons/chat.png";
+import ChatIcon from "../../assets/icons/chat.png";
 import ChatBot from "./ChatBot"; // Import the ChatBot component
 
 const ChatFAB: React.FC = () => {

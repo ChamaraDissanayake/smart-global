@@ -49,7 +49,7 @@ const JoinUsSection = () => {
                     Leverage cutting-edge AI, SaaS, and tech solutions to scale your business, automate processes, and enhance efficiency.
                     Our expertise ensures innovative solutions tailored to your needs.
                 </p>
-                <button className="px-8 py-4 mt-6 text-xl font-semibold text-white transition duration-300 ease-in-out transform scale-95 rounded-full shadow-lg bg-gradient-to-r from-blue-600 to-blue-800 animate-pulse hover:scale-105 hover:shadow-xl focus:outline-none">
+                <button className="px-8 py-4 mt-6 text-xl font-semibold text-white transition duration-300 ease-in-out transform scale-95 rounded-full shadow-lg bg-gradient-to-r from-red-500 to-red-900 animate-pulse hover:scale-105 hover:shadow-xl focus:outline-none">
                     Get Started
                 </button>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import ChatService, { ChatMessage } from "../services/ChatService";
+import ChatService, { ChatMessage } from "../../services/ChatService";
 
 interface ChatBotProps {
     onClose: () => void;
