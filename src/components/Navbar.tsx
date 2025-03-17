@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_NAME } from '../utils/constants/company-details';
 import { motion, AnimatePresence } from 'framer-motion';
-import IndustriesMenu from './Industries/IndustriesMenu';
+import IndustriesMenu from './industries/IndustriesMenu';
 
 const Navbar: React.FC = () => {
     const [isIndustriesOpen, setIndustriesOpen] = useState(false);

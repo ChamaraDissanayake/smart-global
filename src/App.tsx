@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import OurServices from './pages/OurServices';
-import ChatFAB from './components/ChatBot/ChatFAB';
+import ChatFAB from './components/chatBot/ChatFAB';
 import Insights from './pages/Insights';
 import Industries from './pages/Industries';
 
