@@ -1,6 +1,6 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaTimes } from "react-icons/fa";
-import { COMPANY_NAME } from "../utils/constants/company-details";
 import { Link } from "react-router-dom";
+import { COMPANY_NAME } from "../../utils/constants/company-details";
 
 const Footer = () => {
     return (
@@ -20,12 +20,10 @@ const Footer = () => {
 
                     {/* Footer Section 2 */}
                     <div>
-                        <h4 className="mb-4 text-xl font-semibold">Useful Links</h4>
+                        <h4 className="mb-4 text-xl font-semibold">Legal Docs</h4>
                         <ul>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Home</a></li>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">About</a></li>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Services</a></li>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Contact</a></li>
+                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Privacy Policy</a></li>
+                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Terms & Conditions</a></li>
                         </ul>
                     </div>
 
@@ -33,10 +31,12 @@ const Footer = () => {
                     <div>
                         <h4 className="mb-4 text-xl font-semibold">Our Services</h4>
                         <ul>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Web Design</a></li>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Web Development</a></li>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Product Management</a></li>
-                            <li><a href="#" className="text-lg text-gray-400 hover:text-white">Marketing</a></li>
+                            <li><Link to="/services#ai" className="text-lg text-gray-400 hover:text-white">AI & ML</Link></li>
+                            <li><Link to="/services#mobile" className="text-lg text-gray-400 hover:text-white">Mobile App</Link></li>
+                            <li><Link to="/services#web" className="text-lg text-gray-400 hover:text-white">Web Development</Link></li>
+                            <li><Link to="/services#software" className="text-lg text-gray-400 hover:text-white">Custom Software</Link></li>
+                            <li><Link to="/services#cloud" className="text-lg text-gray-400 hover:text-white">Cloud Integration</Link></li>
+                            <li><Link to="/services#security" className="text-lg text-gray-400 hover:text-white">Cybersecurity Services</Link></li>
                         </ul>
                     </div>
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import OurMissionSection from "../components/OurMissionSection";
-import TeamSection from "../components/OurTeamSection";
-import TeamMembersSection from "../components/TeamMembersSection";
+import OurMissionSection from "../components/shared/OurMissionSection";
+import TeamSection from "../components/about/OurTeamSection";
+import TeamMembersSection from "../components/home/TeamMembersSection";
 import { Link } from "react-router-dom";
 import { COMPANY_NAME } from "../utils/constants/company-details";
 

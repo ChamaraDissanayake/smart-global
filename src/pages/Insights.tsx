@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaPlayCircle } from "react-icons/fa";
 import InsightsIntroVideo from "../assets/videos/insights-intro.mp4";
-import VideoModal from "../components/VideoModal";
+import VideoModal from "../components/shared/VideoModal";
 import { insights } from "../utils/constants/insights-data";
 import { CiCircleChevDown, CiCircleChevUp } from "react-icons/ci";
 import { motion, AnimatePresence } from "framer-motion";

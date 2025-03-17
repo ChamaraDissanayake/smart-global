@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom"; // Import useLocation hook
 import { motion } from "framer-motion"; // Import motion for animations
 import useImageCarousel from "../hooks/useImageCarousel";
-import ServiceAISection from "../components/ServiceAISection";
-import ServiceMobileSection from "../components/ServiceMobileSection";
-import ServiceWebSection from "../components/ServiceWebSection";
-import ServiceSoftwareSection from "../components/ServiceSoftwareSection";
-import ServiceCloudSection from "../components/ServiceCloudSection";
-import ServiceSecuritySection from "../components/ServiceSecuritySection";
-import TechnologiesSection from "../components/TechnologiesSection";
+import ServiceAISection from "../components/services/ServiceAISection";
+import ServiceMobileSection from "../components/services/ServiceMobileSection";
+import ServiceWebSection from "../components/services/ServiceWebSection";
+import ServiceSoftwareSection from "../components/services/ServiceSoftwareSection";
+import ServiceCloudSection from "../components/services/ServiceCloudSection";
+import ServiceSecuritySection from "../components/services/ServiceSecuritySection";
+import TechnologiesSection from "../components/services/TechnologiesSection";
 
 const backgroundImages = [
     "/images/join-us-2.jpg",
@@ -67,14 +67,14 @@ const OurServices = () => {
             </div>
 
             {/* Sections with IDs */}
-            <div className="relative z-10 pt-24">
-                <div className="py-8 md:py-16" id="ai"><ServiceAISection /></div>
-                <div className="py-8 md:py-16" id="mobile"><ServiceMobileSection /></div>
-                <div className="py-8 md:py-16" id="web"><ServiceWebSection /></div>
-                <div className="py-8 md:py-16" id="software"><ServiceSoftwareSection /></div>
-                <div className="py-8 md:py-16" id="cloud"><ServiceCloudSection /></div>
-                <div className="py-8 md:py-16" id="security"><ServiceSecuritySection /></div>
-                <div className="py-8 md:py-16"><TechnologiesSection /></div>
+            <div className="relative z-10">
+                <div className="pt-32" id="ai"><ServiceAISection /></div>
+                <div className="pt-32" id="mobile"><ServiceMobileSection /></div>
+                <div className="pt-32" id="web"><ServiceWebSection /></div>
+                <div className="pt-32" id="software"><ServiceSoftwareSection /></div>
+                <div className="pt-32" id="cloud"><ServiceCloudSection /></div>
+                <div className="pt-32" id="security"><ServiceSecuritySection /></div>
+                <div className="pt-32"><TechnologiesSection /></div>
             </div>
         </div>
     );

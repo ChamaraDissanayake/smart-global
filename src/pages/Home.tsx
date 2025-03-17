@@ -1,13 +1,13 @@
 import React from 'react';
 import chooseImage from '../assets/images/choose.jpg';
 import expertiesImage from '../assets/images/experties.webp';
-import VideoSection from '../components/VideoSection';
+import VideoSection from '../components/home/VideoSection';
 import { motion } from 'framer-motion';
-import JoinUsSection from '../components/JoinUsSection';
-import ContactSection from '../components/ContactSection';
-import OurMissionSection from '../components/OurMissionSection';
-import ServicesSection from '../components/ServicesSection';
-import IntroductionSection from '../components/IntroductionSection';
+import JoinUsSection from '../components/home/JoinUsSection';
+import ContactSection from '../components/shared/ContactSection';
+import OurMissionSection from '../components/shared/OurMissionSection';
+import ServiceCardsSection from '../components/home/ServiceCardsSection';
+import IntroductionSection from '../components/home/IntroductionSection';
 
 
 const Home: React.FC = () => {
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
 
             {/* Services Section */}
             <section>
-                <ServicesSection />
+                <ServiceCardsSection />
             </section>
 
             {/* YouTube Video Section */}

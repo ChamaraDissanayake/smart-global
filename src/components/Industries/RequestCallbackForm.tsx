@@ -109,7 +109,7 @@ const RequestCallbackForm: React.FC = () => {
     ];
 
     return (
-        <div className="p-8 bg-gray-800 rounded-lg shadow-lg">
+        <div className="p-8 bg-gray-800 rounded-lg shadow-lg bg-opacity-80">
             <h3 className="mb-6 text-2xl font-semibold text-white">Request a Callback</h3>
             <div className="mb-4 text-lg text-white">
                 We respond promptly, typically within{' '}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface Service {
     id: string; // Add id for linking
@@ -17,14 +18,14 @@ const services: Service[] = [
     { id: "security", title: "Cybersecurity Services", description: "Protect your business with top-notch security frameworks.", icon: "🛡️" },
 ];
 
-const ServicesSection: React.FC = () => {
+const ServiceCardsSection: React.FC = () => {
     return (
         <div className="container px-8 pb-8 mx-auto mt-[-4rem] max-w-full">
             <div className="grid justify-center grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {services.map((service, index) => (
-                    <a key={index} href={`/services#${service.id}`} className="no-underline">
+                    <Link key={index} to={`/services#${service.id}`}>
                         <ServiceCard title={service.title} description={service.description} icon={service.icon} />
-                    </a>
+                    </Link>
                 ))}
             </div>
         </div>
@@ -48,4 +49,4 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon }) =
     );
 };
 
-export default ServicesSection;
+export default ServiceCardsSection;

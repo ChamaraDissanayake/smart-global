@@ -46,7 +46,7 @@ const IndustriesMenu: React.FC<IndustriesMenuProps> = ({ onClose }) => {
                     <div
                         className="relative flex flex-col justify-between w-2/5 p-6 my-6 ml-8 overflow-y-auto rounded-lg"
                         style={{
-                            backgroundImage: "url('./images/industries/industries-not-listed.jpg')",
+                            backgroundImage: "url('./images/industries-background/not-listed.jpg')",
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                         }}

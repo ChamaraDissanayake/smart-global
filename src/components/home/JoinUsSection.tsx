@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import useImageCarousel from "../hooks/useImageCarousel";
+import useImageCarousel from "../../hooks/useImageCarousel";
 
 const images = [
     "/images/join-us-1.webp",

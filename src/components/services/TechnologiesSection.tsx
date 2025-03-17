@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { COMPANY_NAME } from "../utils/constants/company-details";
+import { COMPANY_NAME } from "../../utils/constants/company-details";
 
 type Technology = {
     name: string;

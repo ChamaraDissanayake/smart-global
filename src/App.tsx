@@ -1,9 +1,9 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import Navbar from './components/Navbar';
+import Navbar from './components/shared/Navbar';
 import Home from './pages/Home';
-import Footer from './components/Footer';
+import Footer from './components/shared/Footer';
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import OurServices from './pages/OurServices';

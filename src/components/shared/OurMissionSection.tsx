@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { OUR_TEAM } from "../utils/constants/company-details";
+import { OUR_MISSION } from "../../utils/constants/company-details";
 
-const TeamSection = () => {
+const OurMissionSection = () => {
     return (
         <div className="py-10">
             <div className="container max-w-full gap-8 px-8 mx-auto">
@@ -10,21 +10,27 @@ const TeamSection = () => {
                     className="p-8 bg-[aliceblue] shadow-lg rounded-xl text-center"
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.2 }} // Trigger animation when section is in view
                     transition={{ duration: 1, ease: 'easeOut' }}
                 >
                     <motion.h2 className="flex items-center justify-center gap-2 mb-4 text-3xl font-bold text-black">
                         <motion.span
-                            animate={{ scale: [1, 1.3, 1] }}
-                            transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+                            animate={{
+                                x: [0, .5, -.5, .5, -.5, 0],
+                                y: [0, 1, -1, 1, -1, 0]
+                            }}
+                            transition={{
+                                repeat: Infinity, // Repeat forever
+                                duration: .6, // Adjust duration for speed of shaking
+                                ease: "easeInOut", // Smooth easing for the shake
+                            }}
                         >
-                            🥇
+                            🚀
                         </motion.span>
-                        Our Team
+                        Our Mission
                     </motion.h2>
-
                     <p className="text-lg text-gray-600">
-                        <Link to="/">{OUR_TEAM}</Link>
+                        <Link to="/">{OUR_MISSION}</Link>
                     </p>
                 </motion.div>
             </div>
@@ -32,4 +38,4 @@ const TeamSection = () => {
     );
 };
 
-export default TeamSection;
+export default OurMissionSection;

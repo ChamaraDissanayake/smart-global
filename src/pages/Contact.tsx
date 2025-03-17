@@ -1,4 +1,4 @@
-import ContactSection from "../components/ContactSection";
+import ContactSection from "../components/shared/ContactSection";
 
 const Contact: React.FC = () => {
     return (
