@@ -13,43 +13,43 @@ const TeamMembersSection: React.FC = () => {
         {
             name: "Ibrahim",
             position: "CEO & Founder",
-            image: "./images/team-1.jpg",
+            image: "./images/team/team-1.jpg",
             linkedIn: "https://www.linkedin.com/in/therealibrahimali/",
         },
         {
             name: "Anvar",
             position: "Government Relations Manager",
-            image: "./images/team-2.png",
+            image: "./images/team/team-2.png",
             linkedIn: "https://www.linkedin.com/company/smartclassicdubai/posts/?feedView=all",
         },
         {
             name: "Mansour",
             position: "B2G Manager",
-            image: "./images/team-3.png",
+            image: "./images/team/team-3.png",
             linkedIn: "https://www.linkedin.com/company/smartclassicdubai/posts/?feedView=all",
         },
         {
             name: "Jabir",
             position: "Customer Happiness Specialist",
-            image: "./images/team-4.png",
+            image: "./images/team/team-4.png",
             linkedIn: "https://www.linkedin.com/in/jabir-ahammad-4856312b7/",
         },
         {
             name: "Sherin",
             position: "Customer Happiness Specialist",
-            image: "./images/team-5.png",
+            image: "./images/team/team-5.png",
             linkedIn: "https://www.linkedin.com/company/smartclassicdubai/posts/?feedView=all",
         },
         {
             name: "Shammas",
             position: "Accounts Specialist",
-            image: "./images/team-6.png",
+            image: "./images/team/team-6.png",
             linkedIn: "https://www.linkedin.com/company/smartclassicdubai/posts/?feedView=all",
         },
         {
             name: "Faisal",
             position: "VAT, Corporate Tax and Bookkeeping Specialist",
-            image: "./images/team-7.png",
+            image: "./images/team/team-7.png",
             linkedIn: "https://www.linkedin.com/company/smartclassicdubai/posts/?feedView=all",
         }
     ];
