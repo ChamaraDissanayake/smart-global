@@ -1,7 +1,16 @@
 import { useState } from 'react';
+import sendEmail from '../../services/EmailService';
 
 const ContactSection = () => {
     const [isCopied, setIsCopied] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const phoneNumber = '+971 50 440 6565';
 
     const handleCopy = () => {
@@ -9,6 +18,52 @@ const ContactSection = () => {
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2000); // Reset copy state after 2 seconds
         });
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        if (!formData.name || !formData.email || !(formData.subject || formData.message)) {
+            alert('Please fill out all required fields!');
+            return;
+        }
+
+        const craftedMessage = `
+            Email: ${formData.email}
+            Subject: ${formData.subject}
+            Message: ${formData.message}
+        `;
+
+        const formDataArranged = {
+            name: formData.name,
+            email: formData.email,
+            title: "Contact Us",
+            message: craftedMessage,
+        };
+
+        try {
+            await sendEmail(formDataArranged);
+            alert('Email sent successfully! Our team will contact you soon.');
+            setFormData({
+                name: '',
+                email: '',
+                subject: '',
+                message: '',
+            });
+        } catch {
+            alert('Failed to send email. Try again later.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -46,7 +101,6 @@ const ContactSection = () => {
                         </div>
                     </div>
 
-
                     <div>
                         <h3 className="text-2xl font-semibold">Email Us</h3>
                         <p className="mt-4 text-lg">
@@ -69,40 +123,49 @@ const ContactSection = () => {
 
                 <div className="p-8 bg-gray-800 rounded-lg shadow-lg">
                     <h3 className="mb-6 text-2xl font-semibold text-white">Contact Form</h3>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label htmlFor="name" className="text-lg text-white">
-                                Your Name
+                                Name *
                             </label>
                             <input
                                 type="text"
                                 id="name"
                                 placeholder="Your Name"
                                 className="w-full px-4 py-2 mt-2 text-white bg-gray-700 rounded-lg focus:outline-none"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
                             />
                         </div>
 
                         <div className="mb-4">
                             <label htmlFor="email" className="text-lg text-white">
-                                Your Email
+                                Email *
                             </label>
                             <input
                                 type="email"
                                 id="email"
                                 placeholder="Your Email"
                                 className="w-full px-4 py-2 mt-2 text-white bg-gray-700 rounded-lg focus:outline-none"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
                             />
                         </div>
 
                         <div className="mb-4">
                             <label htmlFor="subject" className="text-lg text-white">
-                                Subject
+                                Subject *
                             </label>
                             <input
                                 type="text"
                                 id="subject"
                                 placeholder="Subject"
                                 className="w-full px-4 py-2 mt-2 text-white bg-gray-700 rounded-lg focus:outline-none"
+                                value={formData.subject}
+                                onChange={handleChange}
+                                required
                             />
                         </div>
 
@@ -115,14 +178,17 @@ const ContactSection = () => {
                                 placeholder="Your Message"
                                 rows={4}
                                 className="w-full px-4 py-2 mt-2 text-white bg-gray-700 rounded-lg focus:outline-none"
+                                value={formData.message}
+                                onChange={handleChange}
                             />
                         </div>
 
                         <button
                             type="submit"
                             className="w-full py-3 text-lg font-semibold text-white transition duration-300 bg-red-500 rounded-lg hover:bg-red-700"
+                            disabled={isSubmitting}
                         >
-                            Send Message
+                            {isSubmitting ? 'Sending...' : 'Send Message'}
                         </button>
                     </form>
                 </div>

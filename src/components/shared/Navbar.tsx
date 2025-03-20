@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
                                 { path: '/insights', label: 'Insights' },
                                 { path: '/about', label: 'About' },
                                 { path: '/services', label: 'Services' },
-                                { path: '/careers', label: 'Careers' },
+                                // { path: '/careers', label: 'Careers' },
                                 { path: '/contact', label: 'Contact' }
                             ].map(({ path, label }) => (
                                 <Link

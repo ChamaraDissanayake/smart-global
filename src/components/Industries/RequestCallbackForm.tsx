@@ -3,6 +3,7 @@ import TextInput from '../reusableForms/TextInput';
 import DropdownInput from '../reusableForms/DropdownInput';
 import TextAreaComponent from '../reusableForms/TextAreaComponent';
 import SubmitButton from '../reusableForms/SubmitButton';
+import sendEmail from '../../services/EmailService';
 
 // Define the structure of the country data from the API
 interface CountryApiResponse {
@@ -47,6 +48,9 @@ const RequestCallbackForm: React.FC = () => {
     // State for country data
     const [countries, setCountries] = useState<Country[]>([]);
 
+    // Handle form submission
+    const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
+
     // Fetch country data from the REST Countries API
     useEffect(() => {
         const fetchCountries = async () => {
@@ -86,15 +90,53 @@ const RequestCallbackForm: React.FC = () => {
         setFormData({ ...formData, countryCode: e.target.value });
     };
 
-    // Handle form submission
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!formData.name || !formData.email || !formData.phone) {
+
+        if (!formData.name || !(formData.email || formData.phone)) {
             alert('Please fill out all required fields!');
             return;
         }
-        console.log('Form Data:', formData);
-        // Add your form submission logic here
+
+        // Prevent multiple submissions
+        if (isSubmitting) return;
+        setIsSubmitting(true); // Disable button
+
+        const messageHeader = window.location.hash.replace('#', '') || 'No Header';
+
+        const craftedMessage = `
+            Phone Number: ${formData.countryCode}${formData.phone}
+            Email: ${formData.email}
+            Budget: ${formData.budget}
+            Talking About: ${messageHeader}
+            Message: ${formData.message}
+        `;
+
+        const formDataArranged = {
+            name: formData.name,
+            email: formData.email,
+            title: "Request a Callback",
+            message: craftedMessage,
+        };
+
+        try {
+            await sendEmail(formDataArranged);
+            alert('Email sent successfully! Our team will contact you soon.');
+
+            // Reset form
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                budget: '',
+                message: '',
+                countryCode: '+971',
+            });
+        } catch {
+            alert('Failed to send email. Try again later.');
+        } finally {
+            setIsSubmitting(false); // Enable button after request completes
+        }
     };
 
     // Budget options for the dropdown
@@ -118,7 +160,7 @@ const RequestCallbackForm: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="name" className="text-lg text-white">
-                        Name
+                        Name *
                     </label>
                     <div className="mt-2">
                         <TextInput
@@ -134,7 +176,7 @@ const RequestCallbackForm: React.FC = () => {
 
                 <div className="mb-4">
                     <label htmlFor="email" className="mb-2 text-lg text-white">
-                        Email
+                        Email *
                     </label>
                     <div className="mt-2">
                         <TextInput
@@ -150,7 +192,7 @@ const RequestCallbackForm: React.FC = () => {
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="phone" className="text-lg text-white">Phone Number</label>
+                    <label htmlFor="phone" className="text-lg text-white">Phone Number *</label>
                     <div className="flex items-center p-2 mt-2 bg-gray-700 rounded-lg">
                         {/* Country Code Section */}
                         <div className="flex items-center px-2 py-1 space-x-2 bg-gray-800 rounded-lg">
@@ -211,7 +253,7 @@ const RequestCallbackForm: React.FC = () => {
                     />
                 </div>
 
-                <SubmitButton />
+                <SubmitButton isSubmitting={isSubmitting} />
             </form>
         </div>
     );
