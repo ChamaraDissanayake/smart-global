@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
 
     return (
         <nav className={`max-h-[100vh] overflow-auto fixed top-0 left-0 w-full p-4 transition-all duration-300 ${navBgColor} z-50`}>
-            <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="px-2 sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
                     {/* Mobile Menu Button */}
                     <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">

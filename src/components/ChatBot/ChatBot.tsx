@@ -126,7 +126,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                         onChange={(e) => setInputText(e.target.value)}
                         onKeyDown={handleKeyDown}
                         placeholder="Type a message..."
-                        className="flex-1 p-2 border border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        className="flex-1 p-2 bg-gray-900 border border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
                     <button
                         onClick={handleSendMessage}
