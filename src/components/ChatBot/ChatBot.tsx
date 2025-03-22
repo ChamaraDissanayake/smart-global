@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ChatService, { ChatMessage } from "../../services/ChatService";
+import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
 
 interface ChatBotProps {
     onClose: () => void;
@@ -12,7 +13,20 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
     const [inputText, setInputText] = useState<string>("");
     const [isSending, setIsSending] = useState<boolean>(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const userId: string = "user123"; // Replace with dynamic user ID if needed
+
+    // Generate or retrieve user ID from localStorage
+    const userId = (() => {
+        // Check if a user ID already exists in localStorage
+        const storedUserId = localStorage.getItem("userId");
+        if (storedUserId) {
+            return storedUserId; // Use the existing user ID
+        } else {
+            // Generate a new unique ID and store it in localStorage
+            const newUserId = uuidv4();
+            localStorage.setItem("userId", newUserId);
+            return newUserId;
+        }
+    })();
 
     // Typing GIF URL (use any suitable GIF)
     const typingGif = "https://media.tenor.com/mT5Timqns1sAAAAi/loading-dots-bouncing-dots.gif";
@@ -36,13 +50,15 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
         setIsSending(true);
 
         // Show Typing GIF
-        const typingMessage: ChatMessage = {
-            id: String(messages.length + 2),
-            text: typingGif, // Store the GIF URL as text
-            sender: "bot",
-        };
+        setTimeout(() => {
+            const typingMessage: ChatMessage = {
+                id: String(messages.length + 2),
+                text: typingGif, // Store the GIF URL as text
+                sender: "bot",
+            };
 
-        setMessages((prevMessages) => [...prevMessages, typingMessage]);
+            setMessages((prevMessages) => [...prevMessages, typingMessage]);
+        }, 3000);
 
         try {
             const response = await ChatService.sendChatMessage(userId, inputText.trim());
