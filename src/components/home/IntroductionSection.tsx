@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { COMPANY_NAME } from '../../utils/constants/company-details';
 
 const images = [
-    "/images/intro-1.jpeg",
+    "/images/intro-1.jpg",
     "/images/intro-2.avif",
     "/images/intro-3.jpg",
     "/images/intro-4.webp",

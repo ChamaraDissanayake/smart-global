@@ -85,7 +85,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                 {/* Chat header */}
                 <div className="flex items-center p-4 bg-blue-900 rounded-t-lg">
                     <img
-                        src="http://smartclassic.ae/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-04-at-11.38.43-AM.jpeg"
+                        src="./images/team/bot.jpg"
                         alt="Profile"
                         className="w-10 h-10 mr-3 rounded-full"
                     />

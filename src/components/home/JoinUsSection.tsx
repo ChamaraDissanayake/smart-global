@@ -5,7 +5,7 @@ const images = [
     "/images/join-us-1.webp",
     "/images/join-us-2.jpg",
     "/images/join-us-3.jpg",
-    "/images/join-us-4.jpeg",
+    "/images/join-us-4.jpg",
     "/images/join-us-5.webp",
 ];
 

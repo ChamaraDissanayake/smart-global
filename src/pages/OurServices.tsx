@@ -14,7 +14,7 @@ const backgroundImages = [
     "/images/join-us-2.jpg",
     "/images/intro-5.jpg",
     "/images/intro-4.webp",
-    "/images/join-us-4.jpeg",
+    "/images/join-us-4.jpg",
     "/images/join-us-5.webp",
     "/images/intro-7.webp",
 ];
