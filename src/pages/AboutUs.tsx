@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import OurMissionSection from "../components/shared/OurMissionSection";
 import TeamSection from "../components/about/OurTeamSection";
-import TeamMembersSection from "../components/about/TeamMembersSection";
+// import TeamMembersSection from "../components/about/TeamMembersSection";
 import { Link } from "react-router-dom";
 import { COMPANY_NAME } from "../utils/constants/company-details";
 
@@ -101,9 +101,9 @@ const AboutUs: React.FC = () => {
                 </section>
 
                 {/* Team Members Section */}
-                <section className="px-6 pb-20">
+                {/* <section className="px-6 pb-20">
                     <TeamMembersSection />
-                </section>
+                </section> */}
 
                 {/* Closing Section */}
                 <section className="px-6 pb-20 text-center">

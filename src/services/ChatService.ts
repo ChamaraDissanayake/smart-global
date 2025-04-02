@@ -1,7 +1,5 @@
-// src/services/ChatService.ts
 import axios from "axios";
-
-const API_BASE_URL = "https://chatbot-api-d9pg.onrender.com/chat";
+import { BASE_CHAT_URL } from "../utils/constants/base-url";
 
 export interface ChatMessage {
     id: string;
@@ -16,7 +14,7 @@ export interface ChatHistoryResponse {
 const ChatService = {
     sendChatMessage: async (userId: string, userInput: string): Promise<{ botResponse: string }> => {
         try {
-            const response = await axios.post<{ botResponse: string }>(API_BASE_URL, { userId, userInput });
+            const response = await axios.post<{ botResponse: string }>(BASE_CHAT_URL, { userId, userInput });
             return response.data;
         } catch (error) {
             console.error("Error sending message:", error);
@@ -26,7 +24,7 @@ const ChatService = {
 
     getChatHistory: async (userId: string, limit: number = 10, offset: number = 0): Promise<ChatMessage[]> => {
         try {
-            const response = await axios.get<ChatHistoryResponse>(`${API_BASE_URL}/history`, {
+            const response = await axios.get<ChatHistoryResponse>(`${BASE_CHAT_URL}/history`, {
                 params: { userId, limit, offset },
             });
 
