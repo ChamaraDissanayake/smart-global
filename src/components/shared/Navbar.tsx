@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { COMPANY_NAME } from '../../utils/constants/company-details';
 import IndustriesMenu from '../industries/IndustriesMenu';
 import { industries } from '../../utils/constants/industries-sub-menu-items';
 
@@ -65,10 +64,7 @@ const Navbar: React.FC = () => {
 
                     {/* Logo Section */}
                     <div className="flex items-center justify-center flex-1 lg:justify-start">
-                        <div className="flex items-center text-2xl font-semibold text-white md:text-3xl whitespace-nowrap">
-                            <img src={"icons/company-logo.png"} alt="icon" className="w-8 h-8 mr-2 md:w-10 md:h-10" />
-                            <Link to="/" className="text-white">{COMPANY_NAME}</Link>
-                        </div>
+                        <img src={"icons/company-name-logo.png"} alt="icon" className="h-24 mr-2" />
                     </div>
 
                     {/* Desktop Navigation */}

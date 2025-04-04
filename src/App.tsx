@@ -10,6 +10,7 @@ import OurServices from './pages/OurServices';
 import ChatFAB from './components/chatBot/ChatFAB';
 import Insights from './pages/Insights';
 import Industries from './pages/Industries';
+import ArticleView from './components/insights/ArticleView';
 
 // Scroll to top when leaving a page
 const ScrollToTop = () => {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/careers" element={<div className="mt-32"><h1>Careers</h1></div>} />
         <Route path="/industries" element={<Industries />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/article/:id" element={<ArticleView />} />
       </Routes>
       <ChatFAB />
       <Footer />

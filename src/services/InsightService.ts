@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL, BASE_URL } from '../utils/constants/base-url';
-import { Insight } from '../utils/modals/Insight';
+import { Insight } from '../utils/types/Insight';
 
 // Based on your console.log, the actual API response has a different structure
 type ApiInsightResponse = {
@@ -27,27 +27,39 @@ const transformInsightResponse = (response: ApiInsightResponse): Insight => ({
     ...(response.video && {
         video: {
             title: response.video.title,
-            thumbnail: response.video.thumbnail ? `${BASE_URL}/${response.video.thumbnail}` : '',
-            url: response.video.url ? `${BASE_URL}/${response.video.url}` : ''
+            thumbnail: response.video.thumbnail?.startsWith('uploads')
+                ? `${BASE_URL}/${response.video.thumbnail}`
+                : response.video.thumbnail || '',
+            url: response.video.url?.startsWith('uploads')
+                ? `${BASE_URL}/${response.video.url}`
+                : response.video.url || '',
         }
     }),
     ...(response.article && {
         article: {
             title: response.article.title,
             description: response.article.description || '',
-            thumbnail: response.article.thumbnail ? `${BASE_URL}/${response.article.thumbnail}` : '',
+            thumbnail: response.article.thumbnail?.startsWith('uploads')
+                ? `${BASE_URL}/${response.article.thumbnail}`
+                : response.article.thumbnail || '',
             content: response.article.content || '',
             time: response.article.time || 0,
-            // Note: Your Insight type doesn't include url for article, but API returns it
-            // You might want to add it to your Insight type if needed
         }
     })
 });
 
-export const fetchInsights = async (): Promise<Insight[]> => {
+
+export const fetchInsights = async (params?: { page?: number; limit?: number }): Promise<{ data: Insight[]; total: number }> => {
     try {
-        const response = await axios.get<ApiInsightResponse[]>(`${API_BASE_URL}/insights`);
-        return response.data.map(transformInsightResponse);
+        const { page = 1, limit = 10 } = params || {};
+        const response = await axios.get<{ insights: ApiInsightResponse[]; pagination: { total: number } }>(
+            `${API_BASE_URL}/insights`, { params: { page, limit } }
+        );
+
+        return {
+            data: response.data.insights.map(transformInsightResponse),
+            total: response.data.pagination.total
+        };
     } catch (error) {
         console.error('Error fetching insights:', error);
         throw new Error('Failed to fetch insights');
