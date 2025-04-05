@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import IndustriesMenu from '../industries/IndustriesMenu';
@@ -10,6 +10,7 @@ const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const [scrolling, setScrolling] = useState<boolean>(false);
     const location = useLocation();
+    const industriesRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,6 +18,16 @@ const Navbar: React.FC = () => {
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (industriesRef.current && !industriesRef.current.contains(event.target as Node)) {
+                setIndustriesOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     const navBgColor = scrolling || isMobileMenuOpen ? 'bg-custom-gray bg-opacity-90' : 'bg-transparent';
@@ -37,7 +48,7 @@ const Navbar: React.FC = () => {
                     console.log('Language already converted');
                 }
             }
-        }, 100); // Ensures Google Translate has loaded
+        }, 100);
     };
 
     const handleCloseIndustries = () => {
@@ -69,14 +80,12 @@ const Navbar: React.FC = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex h-[40px] min-w-0 flex-1 items-center justify-end gap-2 md:gap-4">
-                        {/* Desktop Links */}
                         <div className="flex items-center space-x-2 md:space-x-4">
                             {[
                                 { path: '/', label: 'Home' },
                                 { path: '/insights', label: 'Insights' },
                                 { path: '/about', label: 'About' },
                                 { path: '/services', label: 'Services' },
-                                // { path: '/careers', label: 'Careers' },
                                 { path: '/contact', label: 'Contact' }
                             ].map(({ path, label }) => (
                                 <Link
@@ -88,24 +97,17 @@ const Navbar: React.FC = () => {
                                 </Link>
                             ))}
 
-                            {/* Industries with Hover Submenu (Desktop) */}
-                            <div
-                                className="relative group"
-                                onMouseEnter={() => setIndustriesOpen(true)}
-                                onMouseLeave={() => setIndustriesOpen(false)}
-                            >
+                            {/* Industries with Click Toggle (Desktop) */}
+                            <div className="relative" ref={industriesRef}>
                                 <button
-                                    onClick={() => setIndustriesOpen(!isIndustriesOpen)}
+                                    onClick={() => setIndustriesOpen(prev => !prev)}
                                     className={`relative px-2 py-2 text-sm font-semibold transition-all transform md:px-3 md:text-base hover:scale-105 button-border ${location.pathname === '/industries' ? 'active-tab' : 'text-gray-300'}`}
                                 >
                                     Industries
                                 </button>
                                 <AnimatePresence>
                                     {isIndustriesOpen && (
-                                        <div
-                                            onMouseEnter={() => setIndustriesOpen(true)}
-                                            onMouseLeave={() => setIndustriesOpen(false)}
-                                        >
+                                        <div>
                                             <IndustriesMenu onClose={handleCloseIndustries} />
                                         </div>
                                     )}

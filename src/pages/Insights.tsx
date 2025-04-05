@@ -207,11 +207,13 @@ const Insights: React.FC = () => {
                                                         className="relative flex flex-col overflow-hidden transition-shadow bg-gray-800 rounded-lg shadow-md cursor-pointer"
                                                     >
                                                         {insight.video?.thumbnail && (
-                                                            <img
-                                                                src={insight.video.thumbnail}
-                                                                alt={insight.video.title}
-                                                                className="object-cover h-[50vh]"
-                                                            />
+                                                            <div className="h-[40vh] w-full flex items-center justify-center bg-black">
+                                                                <img
+                                                                    src={insight.video.thumbnail}
+                                                                    alt={insight.video.title}
+                                                                    className="object-contain max-w-full max-h-full"
+                                                                />
+                                                            </div>
                                                         )}
                                                         <motion.div
                                                             className="absolute inset-0 flex items-center justify-center mb-24 bg-black bg-opacity-50"
@@ -280,11 +282,14 @@ const Insights: React.FC = () => {
                                                         whileHover={{ scale: 1.05 }}
                                                     >
                                                         {insight.article?.thumbnail && (
-                                                            <img
-                                                                src={insight.article.thumbnail}
-                                                                alt={insight.article.title}
-                                                                className="object-cover w-full h-[40vh]"
-                                                            />
+                                                            <div className="h-[40vh] w-full flex items-center justify-center bg-black">
+                                                                <img
+                                                                    src={insight.article.thumbnail}
+                                                                    alt={insight.article.title}
+                                                                    className="object-contain max-w-full max-h-full"
+                                                                />
+                                                            </div>
+
                                                         )}
                                                         <div className="p-4">
                                                             <div className="text-sm text-gray-300">{insight.category}</div>

@@ -40,7 +40,7 @@ const ArticleView: React.FC = () => {
                         <img
                             src={article.thumbnail}
                             alt={article.title}
-                            className="object-cover w-full h-64 mb-8 rounded-lg md:h-96"
+                            className="object-cover py-12 rounded-lg w-fullmb-8"
                         />
                     )}
 
