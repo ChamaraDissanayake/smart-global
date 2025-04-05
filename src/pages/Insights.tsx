@@ -68,8 +68,6 @@ const Insights: React.FC = () => {
 
     // Modal handlers
     const openVideoModal = (videoUrl: string) => {
-        console.log('Chamara - videoUrl:', videoUrl);
-
         setSelectedVideoUrl(videoUrl);
         setIsVideoModalOpen(true);
     };

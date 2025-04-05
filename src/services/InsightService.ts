@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { API_BASE_URL, BASE_URL } from '../utils/constants/base-url';
 import { Insight } from '../utils/types/Insight';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // Based on your console.log, the actual API response has a different structure
 type ApiInsightResponse = {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_CHAT_URL } from "../utils/constants/base-url";
+const CHAT_BASE_URL = import.meta.env.VITE_CHAT_BASE_URL;
 
 export interface ChatMessage {
     id: string;
@@ -14,7 +14,7 @@ export interface ChatHistoryResponse {
 const ChatService = {
     sendChatMessage: async (userId: string, userInput: string): Promise<{ botResponse: string }> => {
         try {
-            const response = await axios.post<{ botResponse: string }>(BASE_CHAT_URL, { userId, userInput });
+            const response = await axios.post<{ botResponse: string }>(CHAT_BASE_URL, { userId, userInput });
             return response.data;
         } catch (error) {
             console.error("Error sending message:", error);
@@ -24,11 +24,11 @@ const ChatService = {
 
     getChatHistory: async (userId: string, limit: number = 10, offset: number = 0): Promise<ChatMessage[]> => {
         try {
-            const response = await axios.get<ChatHistoryResponse>(`${BASE_CHAT_URL}/history`, {
+            const response = await axios.get<ChatHistoryResponse>(`${CHAT_BASE_URL}/history`, {
                 params: { userId, limit, offset },
             });
 
-            return response.data.chatHistory.map((msg, index) => ({
+            return response.data?.chatHistory.map((msg, index) => ({
                 id: String(index + 1),
                 text: msg.content,
                 sender: msg.role === "assistant" ? "bot" : "user",

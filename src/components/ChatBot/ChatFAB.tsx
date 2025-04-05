@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ChatIcon from "../../assets/icons/chat.png";
 import ChatBot from "./ChatBot";
-import ChatService from "../../services/ChatService";
+// import ChatService from "../../services/ChatService";
 import { BsChatDots } from "react-icons/bs";
 import { IoCallOutline } from "react-icons/io5";
 import { FaWhatsapp } from "react-icons/fa";
@@ -10,19 +10,22 @@ const ChatFAB: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isChatBotOpen, setIsChatBotOpen] = useState(false); // State for ChatBot visibility
 
-    useEffect(() => {
-        // This is calling to wakeup the backend. When it moved to purchased hosting, remove this.
-        // Fetch chat history when the component mounts.
-        const fetchChatHistory = () => {
-            try {
-                ChatService.getChatHistory('user123');
-            } catch {
-                // console.error("Error fetching chat history:", error);
-            }
-        };
+    // useEffect(() => {
+    //     // This is calling to wakeup the backend. When it moved to purchased hosting, remove this.
+    //     // Fetch chat history when the component mounts.
+    //     const fetchChatHistory = () => {
+    //         try {
+    //             const storedUserId = localStorage.getItem("userId");
+    //             if (storedUserId) {
+    //                 ChatService.getChatHistory(storedUserId);
+    //             }
+    //         } catch (error) {
+    //             console.error("Error fetching chat history:", error);
+    //         }
+    //     };
 
-        fetchChatHistory();
-    }, []); // Empty dependency array to run only once on component mount
+    //     fetchChatHistory();
+    // }, []); // Empty dependency array to run only once on component mount
 
     return (
         <div className="fixed z-50 bottom-5 right-5">
