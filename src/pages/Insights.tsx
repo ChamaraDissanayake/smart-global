@@ -27,21 +27,21 @@ const Insights: React.FC = () => {
     });
 
     useEffect(() => {
-        const loadInsights = async () => {
+        const loadInitialInsights = async () => {
             try {
                 setIsLoading(true);
                 const { data, total } = await fetchInsights({
-                    page: pagination.page,
-                    limit: pagination.limit
+                    page: 1,
+                    limit: 100
                 });
 
-                setInsights(prev =>
-                    pagination.page === 1 ? data : [...prev, ...data]
-                );
+                setInsights(data);
                 setPagination(prev => ({
                     ...prev,
+                    page: 1,
+                    limit: 100,
                     total,
-                    hasMore: data.length > 0 && (pagination.page * pagination.limit) < total
+                    hasMore: data.length > 0 && (1 * 100) < total
                 }));
                 setError(null);
             } catch (err) {
@@ -51,8 +51,9 @@ const Insights: React.FC = () => {
                 setIsLoading(false);
             }
         };
-        loadInsights();
-    }, [pagination.page, pagination.limit]);
+
+        loadInitialInsights();
+    }, []);
 
     // Filter insights by category
     const filteredInsights = selectedCategory
