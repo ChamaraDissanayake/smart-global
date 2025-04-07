@@ -52,7 +52,7 @@ const ChatFAB: React.FC = () => {
 
                     <button
                         onClick={() => {
-                            window.open("https://wa.me/97142399266", "_blank");
+                            window.open("https://wa.me/971505523995", "_blank");
                             setIsOpen(false); // Close the popup when an option is clicked
                         }}
                         className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-gray-700 rounded hover:bg-gray-100"
