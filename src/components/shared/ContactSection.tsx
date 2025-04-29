@@ -80,7 +80,7 @@ const ContactSection = () => {
                     <div className="mb-8">
                         <h3 className="text-2xl font-semibold">Address</h3>
                         <p className="mt-4 text-lg">
-                            Alfutaim Office Tower, Day to Day Building, 1st Floor - Office 102 Smart Hub HQ
+                            Al Futtaim Office Tower, Day to Day Building, 1st Floor - Office 102 SmartGlobal AI Solutions
                         </p>
                     </div>
 
@@ -104,8 +104,8 @@ const ContactSection = () => {
                     <div>
                         <h3 className="text-2xl font-semibold">Email Us</h3>
                         <p className="mt-4 text-lg">
-                            <a href="mailto:ibrahim@smartclassic.ae" className="hover:text-blue-400">
-                                ibrahim@smartclassic.ae
+                            <a href="mailto:team@smartglobalhub.com" className="hover:text-blue-400">
+                                team@smartglobalhub.com
                             </a>
                         </p>
                     </div>

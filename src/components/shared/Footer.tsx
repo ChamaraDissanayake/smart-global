@@ -10,11 +10,11 @@ const Footer = () => {
                     {/* Footer Section 1 */}
                     <div>
                         <h4 className="mb-4 text-xl font-semibold"><Link to="/">{COMPANY_NAME}</Link></h4>
-                        <p className="mb-4 text-lg">Alfutaim Office Tower Day to Day building</p>
-                        <p className="mb-4 text-lg">1st floor - Office 102 Smart Hub HQ</p>
+                        <p className="mb-4 text-lg">Al Futtaim Office Tower Day to Day building</p>
+                        <p className="mb-4 text-lg">1st floor - Office 102 SmartGlobal Ai Solutions</p>
                         <p className="mb-4 text-lg">Phone: +971 50 440 6565</p>
                         <p className="text-lg">
-                            Email: <a href="mailto:hello@smartclassic.ae" className="text-blue-400">hello@smartclassic.ae</a>
+                            Email: <a href="mailto:team@smartglobalhub.com" className="text-blue-400">team@smartglobalhub.com</a>
                         </p>
                     </div>
 
