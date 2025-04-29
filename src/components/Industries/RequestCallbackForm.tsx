@@ -1,83 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TextInput from '../reusableForms/TextInput';
 import DropdownInput from '../reusableForms/DropdownInput';
 import TextAreaComponent from '../reusableForms/TextAreaComponent';
 import SubmitButton from '../reusableForms/SubmitButton';
 import sendEmail from '../../services/EmailService';
+import { COUNTRIES } from '../../utils/constants/countries';
 
-// Define the structure of the country data from the API
-interface CountryApiResponse {
-    cca2: string;
-    idd: {
-        root: string;
-        suffixes: string[];
-    };
-    flags: {
-        png: string;
-    };
-}
-
-// Define the structure of the country data we use in the app
 interface Country {
-    code: string; // Country code (e.g., "GS")
-    callingCode: string; // Full calling code (e.g., "+500")
-    flag: string; // URL to the flag image
+    code: string;
+    callingCode: string;
+    flag: string;
+    name: string;
 }
 
-// Define the shape of the form data
 interface FormData {
     name: string;
     email: string;
     phone: string;
     budget: string;
     message: string;
-    countryCode: string; // Selected country calling code
+    countryCode: string;
 }
 
 const RequestCallbackForm: React.FC = () => {
-    // State for form data
     const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
         phone: '',
         budget: '',
         message: '',
-        countryCode: '+971', // Default country code
+        countryCode: '+971',
     });
 
-    // State for country data
-    const [countries, setCountries] = useState<Country[]>([]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const countries: Country[] = COUNTRIES;
 
-    // Handle form submission
-    const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
+    const selectedCountry = countries.find(c => c.callingCode === formData.countryCode);
 
-    // Fetch country data from the REST Countries API
-    useEffect(() => {
-        const fetchCountries = async () => {
-            try {
-                const response = await fetch('https://restcountries.com/v3.1/all');
-                const data: CountryApiResponse[] = await response.json();
-
-                // Transform and sort data
-                const countryData: Country[] = data
-                    .filter((country) => country.idd?.root && country.idd.suffixes?.length > 0)
-                    .map((country) => ({
-                        code: country.cca2,
-                        callingCode: `${country.idd.root}${country.idd.suffixes[0]}`,
-                        flag: country.flags.png,
-                    }))
-                    .sort((a, b) => parseInt(a.callingCode.replace('+', '')) - parseInt(b.callingCode.replace('+', '')));
-
-                setCountries(countryData);
-            } catch (error) {
-                console.error('Error fetching countries:', error);
-            }
-        };
-
-        fetchCountries();
-    }, []);
-
-    // Handle changes in form inputs
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
@@ -85,10 +46,25 @@ const RequestCallbackForm: React.FC = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    // Handle changes in the country code dropdown
-    const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setFormData({ ...formData, countryCode: e.target.value });
+    const handleCountryCodeChange = (callingCode: string) => {
+        setFormData({ ...formData, countryCode: callingCode });
+        setIsDropdownOpen(false);
     };
+
+    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+        const target = e.target as HTMLImageElement;
+        target.style.display = 'none';
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -98,32 +74,27 @@ const RequestCallbackForm: React.FC = () => {
             return;
         }
 
-        // Prevent multiple submissions
         if (isSubmitting) return;
-        setIsSubmitting(true); // Disable button
+        setIsSubmitting(true);
 
         const messageHeader = window.location.hash.replace('#', '') || 'No Header';
-
         const craftedMessage = `
-            Phone Number: ${formData.countryCode}${formData.phone}
-            Email: ${formData.email}
-            Budget: ${formData.budget}
-            Talking About: ${messageHeader}
-            Message: ${formData.message}
-        `;
-
-        const formDataArranged = {
-            name: formData.name,
-            email: formData.email,
-            title: "Request a Callback",
-            message: craftedMessage,
-        };
+      Phone Number: ${formData.countryCode}${formData.phone}
+      Email: ${formData.email}
+      Budget: ${formData.budget}
+      Talking About: ${messageHeader}
+      Message: ${formData.message}
+    `;
 
         try {
-            await sendEmail(formDataArranged);
-            alert('Email sent successfully! Our team will contact you soon.');
+            await sendEmail({
+                name: formData.name,
+                email: formData.email,
+                title: "Request a Callback",
+                message: craftedMessage,
+            });
 
-            // Reset form
+            alert('Email sent successfully! Our team will contact you soon.');
             setFormData({
                 name: '',
                 email: '',
@@ -135,12 +106,11 @@ const RequestCallbackForm: React.FC = () => {
         } catch {
             alert('Failed to send email. Try again later.');
         } finally {
-            setIsSubmitting(false); // Enable button after request completes
+            setIsSubmitting(false);
         }
     };
 
-    // Budget options for the dropdown
-    const budgetOptions: string[] = [
+    const budgetOptions = [
         'Less than $5000',
         '$5,000-$10,000',
         '$10,000-$20,000',
@@ -157,6 +127,7 @@ const RequestCallbackForm: React.FC = () => {
                 We respond promptly, typically within{' '}
                 <span className="font-semibold">30 minutes</span>
             </div>
+
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="name" className="text-lg text-white">
@@ -194,30 +165,43 @@ const RequestCallbackForm: React.FC = () => {
                 <div className="mb-4">
                     <label htmlFor="phone" className="text-lg text-white">Phone Number *</label>
                     <div className="flex items-center p-2 mt-2 bg-gray-700 rounded-lg">
-                        {/* Country Code Section */}
-                        <div className="flex items-center px-2 py-1 space-x-2 bg-gray-800 rounded-lg">
-                            {formData.countryCode && (
-                                <img
-                                    src={countries.find(c => c.callingCode === formData.countryCode)?.flag}
-                                    alt="Selected country flag"
-                                    className="w-6 h-4"
-                                />
-                            )}
-                            <select
-                                name="countryCode"
-                                value={formData.countryCode}
-                                onChange={handleCountryCodeChange}
-                                className="text-white bg-gray-800 border-none focus:outline-none cursor-pointer w-auto min-w-[70px]"
+                        <div ref={dropdownRef} className="relative mr-2">
+                            <button
+                                type="button"
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                className="flex items-center px-2 py-1 bg-gray-800 rounded-lg text-white space-x-2 min-w-[110px]"
                             >
-                                {countries.map((country) => (
-                                    <option key={country.code} value={country.callingCode}>
-                                        {country.callingCode}
-                                    </option>
-                                ))}
-                            </select>
+                                {selectedCountry && (
+                                    <>
+                                        <img
+                                            src={selectedCountry.flag}
+                                            alt="flag"
+                                            className="w-5 h-4"
+                                            onError={handleImageError}
+                                        />
+                                        <span>{selectedCountry.callingCode}</span>
+                                    </>
+                                )}
+                                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 9l-7 7-7-7" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                            {isDropdownOpen && (
+                                <ul className="absolute z-10 mt-1 max-h-60 overflow-y-auto bg-gray-900 border border-gray-700 rounded-lg w-[300px]">
+                                    {countries.map((country) => (
+                                        <li
+                                            key={country.code}
+                                            onClick={() => handleCountryCodeChange(country.callingCode)}
+                                            className="flex items-center px-3 py-2 space-x-2 text-white cursor-pointer hover:bg-gray-700"
+                                        >
+                                            <img src={country.flag} alt={country.name} className="w-5 h-4" onError={handleImageError} />
+                                            <span>{country.callingCode}</span>
+                                            <span className="text-sm text-gray-400">{country.name}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
-
-                        {/* Phone Input */}
                         <TextInput
                             id="phone"
                             placeholder="Phone Number *"
@@ -229,7 +213,6 @@ const RequestCallbackForm: React.FC = () => {
                         />
                     </div>
                 </div>
-
 
                 <div className="mb-4">
                     <DropdownInput
