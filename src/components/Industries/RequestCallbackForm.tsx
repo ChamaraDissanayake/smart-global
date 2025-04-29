@@ -5,13 +5,7 @@ import TextAreaComponent from '../reusableForms/TextAreaComponent';
 import SubmitButton from '../reusableForms/SubmitButton';
 import sendEmail from '../../services/EmailService';
 import { COUNTRIES } from '../../utils/constants/countries';
-
-interface Country {
-    code: string;
-    callingCode: string;
-    flag: string;
-    name: string;
-}
+import { Country } from '../../types/country';
 
 interface FormData {
     name: string;

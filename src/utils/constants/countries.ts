@@ -1,4 +1,6 @@
-export const COUNTRIES = [
+import { Country } from "../../types/country";
+
+export const COUNTRIES: Country[] = [
     {
         "code": "CA",
         "callingCode": "+1",
