@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ChatService, { ChatMessage } from "../../services/ChatService";
-import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
+import { v4 as uuidv4 } from "uuid";
 
 interface ChatBotProps {
     onClose: () => void;
@@ -14,24 +14,19 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
     const [isSending, setIsSending] = useState<boolean>(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Generate or retrieve user ID from localStorage
     const userId = (() => {
-        // Check if a user ID already exists in localStorage
         const storedUserId = localStorage.getItem("userId");
         if (storedUserId) {
-            return storedUserId; // Use the existing user ID
+            return storedUserId;
         } else {
-            // Generate a new unique ID and store it in localStorage
             const newUserId = uuidv4();
             localStorage.setItem("userId", newUserId);
             return newUserId;
         }
     })();
 
-    // Typing GIF URL (use any suitable GIF)
     const typingGif = "https://media.tenor.com/mT5Timqns1sAAAAi/loading-dots-bouncing-dots.gif";
 
-    // Scroll to the latest message smoothly
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
@@ -49,11 +44,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
         setInputText("");
         setIsSending(true);
 
-        // Show Typing GIF
         setTimeout(() => {
             const typingMessage: ChatMessage = {
                 id: String(messages.length + 2),
-                text: typingGif, // Store the GIF URL as text
+                text: typingGif,
                 sender: "bot",
             };
 
@@ -63,7 +57,6 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
         try {
             const response = await ChatService.sendChatMessage(userId, inputText.trim());
 
-            // Replace Typing GIF with actual response
             setMessages((prevMessages) =>
                 prevMessages.map((msg) =>
                     msg.text === typingGif
@@ -87,7 +80,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
 
     return (
         <div
-            className="fixed bottom-4 right-4 bg-gray-800 rounded-lg shadow-lg z-1000 w-96 h-[400px] max-w-full overflow-hidden font-sans"
+            className="fixed bottom-0 right-0 bg-gray-800 rounded-tl-lg shadow-lg z-1000 w-[calc(100%-1rem)] mx-2 sm:mx-0 sm:w-96 h-[calc(100vh-4rem)] sm:h-[400px] sm:bottom-4 sm:right-4 overflow-hidden font-sans"
             style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
         >
             <div className="flex flex-col h-full">
@@ -117,10 +110,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                         {messages.map((message) => (
                             <div
                                 key={message.id}
-                                className={`p-3 rounded-lg max-w-[80%] ${message.sender === "bot"
+                                className={`p-3 rounded-lg max-w-[80%] sm:max-w-[70%] ${message.sender === "bot"
                                     ? "bg-blue-100 self-start rounded-bl-none text-blue-800"
                                     : "bg-green-100 self-end rounded-br-none text-green-800"
-                                    }`}
+                                }`}
                             >
                                 {message.text === typingGif ? (
                                     <img src={typingGif} alt="Typing..." className="w-12 h-6" />
@@ -130,7 +123,6 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                             </div>
                         ))}
                     </div>
-                    {/* Reference for scrolling */}
                     <div ref={messagesEndRef} />
                 </div>
 
@@ -150,7 +142,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                         className={`px-4 py-2 text-white rounded-lg ${isSending
                             ? "bg-gray-400 cursor-not-allowed"
                             : "bg-blue-500 hover:bg-blue-600"
-                            }`}
+                        }`}
                     >
                         Send
                     </button>
