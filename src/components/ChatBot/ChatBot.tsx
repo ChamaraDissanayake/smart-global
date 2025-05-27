@@ -88,34 +88,36 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
         setInputText("");
         setIsSending(true);
 
-        // Show typing indicator
-        const typingMessage: ChatMessage = {
-            id: "typing",
-            text: typingGif,
-            sender: "assistant",
-        };
+        // Showing typing gif with a delay before sending the response
+        setTimeout(async () => {
+            const typingMessage: ChatMessage = {
+                id: "typing",
+                text: typingGif,
+                sender: "assistant",
+            };
 
-        setMessages((prev) => [...prev, typingMessage]);
+            setMessages((prev) => [...prev, typingMessage]);
 
-        try {
-            const response = await ChatService.sendChatMessage(threadId, userMessage.text);
+            try {
+                const response = await ChatService.sendChatMessage(threadId, userMessage.text);
 
-            setMessages((prev) =>
-                prev.map((msg) =>
-                    msg.id === "typing"
-                        ? {
-                            id: String(prev.length + 1),
-                            text: response.botResponse,
-                            sender: "assistant",
-                        }
-                        : msg
-                )
-            );
-        } catch (error) {
-            console.error("Failed to send message:", error);
-        } finally {
-            setIsSending(false);
-        }
+                setMessages((prev) =>
+                    prev.map((msg) =>
+                        msg.id === "typing"
+                            ? {
+                                id: String(prev.length + 1),
+                                text: response.botResponse,
+                                sender: "assistant",
+                            }
+                            : msg
+                    )
+                );
+            } catch (error) {
+                console.error("Failed to send message:", error);
+            } finally {
+                setIsSending(false);
+            }
+        }, 3000); // 3 second delay before showing typing gif and sending response
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -198,8 +200,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                                     <div
                                         key={message.id}
                                         className={`p-3 rounded-lg max-w-[80%] sm:max-w-[70%] ${message.sender === "assistant"
-                                                ? "bg-blue-100 self-start rounded-bl-none text-blue-800"
-                                                : "bg-green-100 self-end rounded-br-none text-green-800"
+                                            ? "bg-blue-100 self-start rounded-bl-none text-blue-800"
+                                            : "bg-green-100 self-end rounded-br-none text-green-800"
                                             }`}
                                     >
                                         {message.text === typingGif ? (
@@ -227,8 +229,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                                 onClick={handleSendMessage}
                                 disabled={isSending}
                                 className={`px-4 py-2 text-white rounded-lg ${isSending
-                                        ? "bg-gray-400 cursor-not-allowed"
-                                        : "bg-blue-500 hover:bg-blue-600"
+                                    ? "bg-gray-400 cursor-not-allowed"
+                                    : "bg-blue-500 hover:bg-blue-600"
                                     }`}
                             >
                                 Send
