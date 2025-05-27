@@ -13,35 +13,54 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
         sender: "assistant",
     }), []);
 
-    const [messages, setMessages] = useState<ChatMessage[]>([WELCOME_MESSAGE]);
-
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [inputText, setInputText] = useState<string>("");
     const [isSending, setIsSending] = useState<boolean>(false);
-    const [threadId, setThreadId] = useState<string | null>(null); // track threadId
-    const [showForm, setShowForm] = useState<boolean>(true); // show form by default
+    const [threadId, setThreadId] = useState<string | null>(null);
+    const [showForm, setShowForm] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
     const typingGif = "https://media.tenor.com/mT5Timqns1sAAAAi/loading-dots-bouncing-dots.gif";
 
-    // Check if threadId exists
+    // On first load, check localStorage for threadId
     useEffect(() => {
         const storedThreadId = localStorage.getItem("threadId");
         if (storedThreadId) {
             setThreadId(storedThreadId);
             setShowForm(false);
+            setLoading(true);
         }
     }, []);
 
+    // Scroll to bottom on new messages
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    // Submit customer info
+    // Load chat history
+    useEffect(() => {
+        const loadChatHistory = async () => {
+            if (threadId) {
+                try {
+                    const history = await ChatService.getChatHistory(threadId);
+                    setMessages([WELCOME_MESSAGE, ...history.reverse()]);
+                } catch (error) {
+                    console.error("Failed to load chat history:", error);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        if (threadId) loadChatHistory();
+    }, [WELCOME_MESSAGE, threadId]);
+
+    // Handle form submission
     const handleFormSubmit = async () => {
         const newCustomerId = uuidv4();
         try {
@@ -49,41 +68,46 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
             localStorage.setItem("threadId", threadId);
             setThreadId(threadId);
             setShowForm(false);
+            setMessages([WELCOME_MESSAGE]);
         } catch (error) {
             console.error("Failed to create customer:", error);
         }
     };
 
+    // Handle message sending
     const handleSendMessage = async () => {
         if (inputText.trim() === "" || isSending || !threadId) return;
 
-        const newMessage: ChatMessage = {
+        const userMessage: ChatMessage = {
             id: String(messages.length + 1),
             text: inputText.trim(),
             sender: "user",
         };
 
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        setMessages((prev) => [...prev, userMessage]);
         setInputText("");
         setIsSending(true);
 
-        setTimeout(() => {
-            const typingMessage: ChatMessage = {
-                id: String(messages.length + 2),
-                text: typingGif,
-                sender: "assistant",
-            };
+        // Show typing indicator
+        const typingMessage: ChatMessage = {
+            id: "typing",
+            text: typingGif,
+            sender: "assistant",
+        };
 
-            setMessages((prevMessages) => [...prevMessages, typingMessage]);
-        }, 3000);
+        setMessages((prev) => [...prev, typingMessage]);
 
         try {
-            const response = await ChatService.sendChatMessage(threadId, inputText.trim());
+            const response = await ChatService.sendChatMessage(threadId, userMessage.text);
 
-            setMessages((prevMessages) =>
-                prevMessages.map((msg) =>
-                    msg.text === typingGif
-                        ? { id: String(messages.length + 2), text: response.botResponse, sender: "assistant" }
+            setMessages((prev) =>
+                prev.map((msg) =>
+                    msg.id === "typing"
+                        ? {
+                            id: String(prev.length + 1),
+                            text: response.botResponse,
+                            sender: "assistant",
+                        }
                         : msg
                 )
             );
@@ -100,32 +124,6 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
             handleSendMessage();
         }
     };
-
-    useEffect(() => {
-        const storedThreadId = localStorage.getItem("threadId");
-        if (storedThreadId) {
-            setThreadId(storedThreadId);
-            setShowForm(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        const loadChatHistory = async () => {
-            if (threadId) {
-                try {
-                    const history = await ChatService.getChatHistory(threadId);
-                    setMessages([WELCOME_MESSAGE, ...history.reverse()]);
-
-                } catch (error) {
-                    console.error("Failed to load chat history:", error);
-                }
-            }
-        };
-
-        loadChatHistory();
-    }, [WELCOME_MESSAGE, threadId]);
-
-
 
     return (
         <div
@@ -153,7 +151,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                     </div>
                 </div>
 
-                {/* Show form or chat */}
+                {/* Render form, spinner, or chat */}
                 {showForm ? (
                     <div className="flex flex-col items-center justify-center flex-1 gap-3 p-4 text-white bg-gray-900">
                         <p className="text-sm text-center">
@@ -187,6 +185,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                             Start Chat
                         </button>
                     </div>
+                ) : loading ? (
+                    <div className="flex items-center justify-center flex-1 bg-gray-900">
+                        <img src={typingGif} alt="Loading..." className="w-12 h-6" />
+                    </div>
                 ) : (
                     <>
                         {/* Chat body */}
@@ -196,8 +198,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                                     <div
                                         key={message.id}
                                         className={`p-3 rounded-lg max-w-[80%] sm:max-w-[70%] ${message.sender === "assistant"
-                                            ? "bg-blue-100 self-start rounded-bl-none text-blue-800"
-                                            : "bg-green-100 self-end rounded-br-none text-green-800"
+                                                ? "bg-blue-100 self-start rounded-bl-none text-blue-800"
+                                                : "bg-green-100 self-end rounded-br-none text-green-800"
                                             }`}
                                     >
                                         {message.text === typingGif ? (
@@ -225,8 +227,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                                 onClick={handleSendMessage}
                                 disabled={isSending}
                                 className={`px-4 py-2 text-white rounded-lg ${isSending
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-blue-500 hover:bg-blue-600"
+                                        ? "bg-gray-400 cursor-not-allowed"
+                                        : "bg-blue-500 hover:bg-blue-600"
                                     }`}
                             >
                                 Send
