@@ -4,17 +4,42 @@ const CHAT_BASE_URL = import.meta.env.VITE_CHAT_BASE_URL;
 export interface ChatMessage {
     id: string;
     text: string;
-    sender: "bot" | "user";
+    sender: "assistant" | "user";
 }
 
 export interface ChatHistoryResponse {
-    chatHistory: { role: string; content: string; timestamp: number }[];
+    id: string;
+    threadId: string;
+    role: "assistant" | "user";
+    content: string;
+    createdAt: string;
 }
 
+// This is the company ID for SmartGlobal AI Solutions 
+const companyId = '6624d7c0-ced8-4878-8644-bd5ceb6ef5d8';
+
 const ChatService = {
-    sendChatMessage: async (userId: string, userInput: string): Promise<{ botResponse: string }> => {
+    createCustomerThread: async (customerId: string, name: string, email: string, phone: string): Promise<string> => {
         try {
-            const response = await axios.post<{ botResponse: string }>(CHAT_BASE_URL, { userId, userInput });
+
+            const data = await axios.post(`${CHAT_BASE_URL}/customer/create`, {
+                customerId,
+                companyId,
+                name,
+                email,
+                phone,
+            });
+
+            return data.data.threadId;
+        } catch (error) {
+            console.error("Error creating customer:", error);
+            throw error;
+        }
+    },
+
+    sendChatMessage: async (threadId: string, message: string): Promise<{ botResponse: string }> => {
+        try {
+            const response = await axios.post<{ botResponse: string }>(`${CHAT_BASE_URL}/chat/chat-web`, { threadId, companyId, message });
             return response.data;
         } catch (error) {
             console.error("Error sending message:", error);
@@ -22,22 +47,23 @@ const ChatService = {
         }
     },
 
-    getChatHistory: async (userId: string, limit: number = 10, offset: number = 0): Promise<ChatMessage[]> => {
+    getChatHistory: async (threadId: string, limit: number = 20, offset: number = 0): Promise<ChatMessage[]> => {
         try {
-            const response = await axios.get<ChatHistoryResponse>(`${CHAT_BASE_URL}/history`, {
-                params: { userId, limit, offset },
+            const response = await axios.get(`${CHAT_BASE_URL}/chat/chat-history`, {
+                params: { threadId, limit, offset },
             });
 
-            return response.data?.chatHistory.map((msg, index) => ({
-                id: String(index + 1),
+            return response.data.map((msg: ChatHistoryResponse, index: number) => ({
+                id: msg.id || String(index + 1),
                 text: msg.content,
-                sender: msg.role === "assistant" ? "bot" : "user",
+                sender: msg.role === "assistant" ? "assistant" : "user",
             }));
         } catch (error) {
             console.error("Error fetching chat history:", error);
             return [];
         }
     },
+
 };
 
 export default ChatService;
