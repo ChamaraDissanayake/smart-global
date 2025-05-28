@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import ChatService, { ChatMessage } from "../../services/ChatService";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 interface ChatBotProps {
     onClose: () => void;
@@ -50,8 +51,21 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
                 try {
                     const history = await ChatService.getChatHistory(threadId);
                     setMessages([WELCOME_MESSAGE, ...history.reverse()]);
-                } catch (error) {
-                    console.error("Failed to load chat history:", error);
+                } catch (error: unknown) {
+                    if (axios.isAxiosError(error) && error.response) {
+                        const statusCode = error.response.status;
+
+                        if (statusCode === 404) {
+                            console.warn(error.response.data.error);
+                            localStorage.removeItem("threadId");
+                            setThreadId(null);
+                            setShowForm(true);
+                        } else {
+                            console.error("Failed to load chat history:", error);
+                        }
+                    } else {
+                        console.error("An unexpected error occurred:", error);
+                    }
                 } finally {
                     setLoading(false);
                 }
