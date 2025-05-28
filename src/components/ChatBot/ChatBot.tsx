@@ -25,7 +25,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
     const [phone, setPhone] = useState("");
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const typingGif = "https://media.tenor.com/mT5Timqns1sAAAAi/loading-dots-bouncing-dots.gif";
+    const typingGif = "/images/typing.gif";
+
 
     // On first load, check localStorage for threadId
     useEffect(() => {
