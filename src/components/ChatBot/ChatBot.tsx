@@ -75,6 +75,43 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
         if (threadId) loadChatHistory();
     }, [WELCOME_MESSAGE, threadId]);
 
+    useEffect(() => {
+        if (!threadId) return;
+
+        const cleanup = ChatService.connectToThread(threadId, (msg) => {
+            // 🚫 Ignore user messages from the socket (already handled locally)
+            if (msg.sender !== 'assistant') return;
+
+            setMessages((prev) => {
+                const hasTyping = prev.find((m) => m.id === "typing");
+
+                if (hasTyping) {
+                    // Replace "typing" message with real response
+                    return prev.map((m) =>
+                        m.id === "typing"
+                            ? {
+                                id: msg.id,
+                                text: msg.text,
+                                sender: msg.sender,
+                            }
+                            : m
+                    );
+                } else {
+                    // Append new assistant message
+                    return [...prev, {
+                        id: msg.id,
+                        text: msg.text,
+                        sender: msg.sender,
+                    }];
+                }
+            });
+        });
+
+        return () => {
+            cleanup();
+        };
+    }, [threadId]);
+
     // Handle form submission
     const handleFormSubmit = async () => {
         const newCustomerId = uuidv4();
@@ -114,19 +151,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
             setMessages((prev) => [...prev, typingMessage]);
 
             try {
-                const response = await ChatService.sendChatMessage(threadId, userMessage.text);
-
-                setMessages((prev) =>
-                    prev.map((msg) =>
-                        msg.id === "typing"
-                            ? {
-                                id: String(prev.length + 1),
-                                text: response.botResponse,
-                                sender: "assistant",
-                            }
-                            : msg
-                    )
-                );
+                await ChatService.sendChatMessage(threadId, userMessage.text);
+                // Remove the response handling since it will come through the socket
             } catch (error) {
                 console.error("Failed to send message:", error);
             } finally {
