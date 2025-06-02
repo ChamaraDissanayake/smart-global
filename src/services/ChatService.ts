@@ -1,7 +1,7 @@
 import axios from "axios";
 import socket from "./helpers/socket";
 
-const CHAT_BASE_URL = import.meta.env.VITE_CHAT_BASE_URL;
+const CHAT_BASE_URL = `${import.meta.env.VITE_CHAT_BASE_URL}/api`;
 
 export interface ChatMessage {
     id: string;

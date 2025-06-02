@@ -1,6 +1,7 @@
 // src/services/helpers/socket.ts
 import { io, Socket } from "socket.io-client";
 import type { ChatHistoryResponse } from "../ChatService";
+const CHAT_BASE_URL = `${import.meta.env.VITE_CHAT_BASE_URL}`;
 
 interface ServerToClientEvents {
     "new-message": (message: ChatHistoryResponse) => void;
@@ -11,8 +12,7 @@ interface ClientToServerEvents {
 }
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-    "https://crmb.smartglobalhub.com",
-    // "http://localhost:3000",
+    CHAT_BASE_URL,
     {
         path: "/socket.io",
         transports: ["websocket", "polling"],
