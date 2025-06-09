@@ -23,18 +23,18 @@ function getCompanyId(): string {
 
 const ChatService = {
     createCustomerThread: async (
-        customerId: string,
         name: string,
         email: string,
-        phone: string
+        phone: string,
+        channel: string = "web"
     ): Promise<string> => {
         const companyId = getCompanyId();
-        const response = await axios.post(`${CHAT_BASE_URL}/customer/create`, {
-            customerId,
+        const response = await axios.post(`${CHAT_BASE_URL}/customer/create-customer-thread`, {
             companyId,
             name,
             email,
             phone,
+            channel
         });
         return response.data.threadId;
     },
